@@ -16,7 +16,7 @@ const Todo = ({ todo }) => {
       <ListItem>
          <span>{todo.title}</span>
          <button onClick={() => deleteTodo({ variables: { id: todo.id } })}>
-            <CloseIcon />
+            <CloseIcon color="#fff" />
          </button>
       </ListItem>
    )

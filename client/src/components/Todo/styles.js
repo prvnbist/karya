@@ -11,7 +11,8 @@ export const ListItem = styled.li`
    transition: 0.2s ease-in-out;
    justify-content: space-between;
    &:hover {
-      background: #f7f7fb;
+      color: #fff;
+      background: #6d51f4;
       button {
          display: flex;
       }
@@ -27,9 +28,9 @@ export const ListItem = styled.li`
       justify-content: center;
       background: transparent;
       &:hover {
-         background: #6d51f4;
+         background: #fff;
          svg {
-            stroke: #fff;
+            stroke: #6d51f4;
          }
       }
    }

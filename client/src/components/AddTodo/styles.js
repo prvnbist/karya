@@ -12,7 +12,7 @@ export const Form = styled.form`
       font-size: 16px;
       padding-left: 12px;
       border-radius: 4px;
-      border: 1px solid #d0d0d0;
+      border: 1px solid #e6e6e6;
       &:focus {
          outline: 1px solid #6d51f4;
       }

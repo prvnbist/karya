@@ -37,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
       font-family: 'IBM Plex Sans', sans-serif;
    }
    body {
+      background: #fffefe;
       font-family: 'IBM Plex Sans', sans-serif;
    }
 `
