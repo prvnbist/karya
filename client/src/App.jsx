@@ -2,11 +2,12 @@ import React from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 // Queries
-import { GET_TODOS, ADD_TODO } from './queries'
+import { GET_TODOS, ADD_TODO, DELETE_TODO } from './queries'
 
 const App = () => {
    const { loading, error, data } = useQuery(GET_TODOS)
    const [addTodo] = useMutation(ADD_TODO)
+   const [deleteTodo] = useMutation(DELETE_TODO)
    const [todo, setTodo] = React.useState('')
 
    const submit = e => {
@@ -33,7 +34,12 @@ const App = () => {
          </form>
          <ul>
             {data.todos.map(todo => (
-               <li key={todo.id}>{todo.title}</li>
+               <li key={todo.id}>
+                  <span>{todo.title}</span>
+                  <i onClick={() => deleteTodo({ variables: { id: todo.id } })}>
+                     x
+                  </i>
+               </li>
             ))}
          </ul>
       </div>
