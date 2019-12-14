@@ -52,10 +52,19 @@ const resolvers = {
       },
       updateTodo: async (_, { id, ...args }) => {
          try {
+            const { tags } = await Todo.findOne(
+               { _id: id },
+               (error, result) => {
+                  if (error) throw new Error(error)
+                  return result
+               }
+            )
+            const newTags = await args.tags.filter(tag => !tags.includes(tag))
+
             const update = {
                $set: {
                   ...(args.title && { title: args.title }),
-                  ...(args.tags && { tags: args.tags }),
+                  ...(args.tags && { tags: [...tags, ...newTags] }),
                },
             }
             const todo = Todo.findByIdAndUpdate(
