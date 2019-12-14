@@ -1,8 +1,8 @@
 import React from 'react'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, useApolloClient } from '@apollo/react-hooks'
 
 // Queries
-import { ADD_TODO } from '../../queries'
+import { ADD_TODO, GET_TODOS } from '../../queries'
 
 // Styles
 import { Form } from './styles'
@@ -11,7 +11,16 @@ import { Form } from './styles'
 import { AddIcon } from '../../assets/icons'
 
 const AddTodo = () => {
-   const [addTodo] = useMutation(ADD_TODO)
+   const client = useApolloClient()
+   const [addTodo] = useMutation(ADD_TODO, {
+      onCompleted: ({ addTodo: { data: todo } }) => {
+         const { todos } = client.readQuery({ query: GET_TODOS })
+         client.writeQuery({
+            query: GET_TODOS,
+            data: { todos: [todo, ...todos] },
+         })
+      },
+   })
    const [todo, setTodo] = React.useState('')
 
    const submit = e => {
@@ -22,6 +31,7 @@ const AddTodo = () => {
             tags: [],
          },
       })
+      setTodo('')
    }
    return (
       <Form onSubmit={submit}>
