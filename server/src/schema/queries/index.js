@@ -1,7 +1,7 @@
-const { gql } = require("apollo-server");
+const { gql } = require('apollo-server')
 
 module.exports = gql`
-  type Query {
-    todos: [Todo]!
-  }
-`;
+   type Query {
+      todos: [Todo]!
+   }
+`

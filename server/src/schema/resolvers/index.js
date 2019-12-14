@@ -7,6 +7,16 @@ const resolvers = {
          return 'Success'
       },
    },
+   Query: {
+      todos: async () => {
+         try {
+            const todos = await Todo.find()
+            return todos
+         } catch (error) {
+            return error.message
+         }
+      },
+   },
    Mutation: {
       addTodo: async (_, { title }) => {
          try {
