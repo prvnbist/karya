@@ -10,7 +10,7 @@ const resolvers = {
    Query: {
       todos: async () => {
          try {
-            const todos = await Todo.find()
+            const todos = await Todo.find().sort({ createdAt: -1 })
             return todos
          } catch (error) {
             return error.message
