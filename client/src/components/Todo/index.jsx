@@ -26,9 +26,20 @@ const Todo = ({ todo }) => {
    return (
       <ListItem>
          <span>{todo.title}</span>
-         <button onClick={() => deleteTodo({ variables: { id: todo.id } })}>
-            <CloseIcon color="#fff" />
-         </button>
+         <div>
+            <span>
+               {new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+               }).format(todo.createdAt)}
+            </span>
+            <button onClick={() => deleteTodo({ variables: { id: todo.id } })}>
+               <CloseIcon color="#fff" />
+            </button>
+         </div>
       </ListItem>
    )
 }

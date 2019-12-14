@@ -8,13 +8,24 @@ export const ListItem = styled.li`
    list-style: none;
    border-radius: 4px;
    align-items: center;
-   transition: 0.2s ease-in-out;
    justify-content: space-between;
    &:hover {
       color: #fff;
       background: #6d51f4;
       button {
          display: flex;
+      }
+      & > div {
+         span {
+            color: #fff;
+         }
+      }
+   }
+   & > div {
+      display: flex;
+      align-items: center;
+      span {
+         color: #cec9c9;
       }
    }
    button {
@@ -23,6 +34,7 @@ export const ListItem = styled.li`
       border: none;
       display: none;
       cursor: pointer;
+      margin-left: 8px;
       border-radius: 50%;
       align-items: center;
       justify-content: center;
