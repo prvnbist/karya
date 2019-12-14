@@ -21,6 +21,24 @@ const resolvers = {
           error: error.message
         };
       }
+    },
+    deleteTodo: async (_, { id }) => {
+      try {
+        let result;
+        await Todo.findByIdAndDelete(id, (error, todo) => {
+          if (error) throw new Error(error);
+          result = todo;
+        });
+        return {
+          success: true,
+          data: result
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: error.message
+        };
+      }
     }
   }
 };
