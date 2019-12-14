@@ -1,0 +1,16 @@
+{
+  "name": "another-todo-app",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prvnbist/another-todo-app.git"
+  },
+  "author": "Praveen Bisht",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prvnbist/another-todo-app/issues"
+  },
+  "homepage": "https://github.com/prvnbist/another-todo-app#readme"
+}
