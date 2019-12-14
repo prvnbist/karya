@@ -18,9 +18,9 @@ const resolvers = {
       },
    },
    Mutation: {
-      addTodo: async (_, { title }) => {
+      addTodo: async (_, { title, tags }) => {
          try {
-            const todo = await Todo.create({ title })
+            const todo = await Todo.create({ title, tags })
             return {
                success: true,
                data: todo,
@@ -50,9 +50,14 @@ const resolvers = {
             }
          }
       },
-      renameTodo: async (_, { id, title }) => {
+      updateTodo: async (_, { id, ...args }) => {
          try {
-            const update = { $set: { title } }
+            const update = {
+               $set: {
+                  ...(args.title && { title: args.title }),
+                  ...(args.tags && { tags: args.tags }),
+               },
+            }
             const todo = Todo.findByIdAndUpdate(
                id,
                update,

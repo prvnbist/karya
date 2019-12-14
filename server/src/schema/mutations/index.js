@@ -2,8 +2,8 @@ const { gql } = require('apollo-server')
 
 module.exports = gql`
    type Mutation {
-      addTodo(title: String!): Result
+      addTodo(title: String!, tags: [String]!): Result
       deleteTodo(id: ID!): Result
-      renameTodo(id: ID!, title: String!): Result
+      updateTodo(id: ID!, title: String, tags: [String]): Result
    }
 `
