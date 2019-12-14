@@ -1,3 +1,4 @@
 import CloseIcon from './CloseIcon'
+import AddIcon from './AddIcon'
 
-export { CloseIcon }
+export { CloseIcon, AddIcon }
