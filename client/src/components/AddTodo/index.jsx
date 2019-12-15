@@ -10,12 +10,13 @@ import { Form } from './styles'
 // Assets
 import { AddIcon } from '../../assets/icons'
 
-const AddTodo = () => {
+const AddTodo = ({ dispatch }) => {
    const client = useApolloClient()
    const [title, setTitle] = React.useState('')
 
    const [addTodo] = useMutation(ADD_TODO, {
       onCompleted: ({ addTodo: { data: todo } }) => {
+         dispatch({ type: 'CLEAR_TODOS' })
          const { todos } = client.readQuery({ query: GET_TODOS })
          client.writeQuery({
             query: GET_TODOS,

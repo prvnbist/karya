@@ -31,6 +31,12 @@ const reducers = (state, action) => {
             ...state,
             done: [action.payload, ...state.done],
          }
+      case 'CLEAR_TODOS':
+         return {
+            todo: [],
+            in_progress: [],
+            done: [],
+         }
       default:
          return state
    }
@@ -53,9 +59,13 @@ const App = () => {
    return (
       <Wrapper>
          {editMode ? (
-            <EditTodo todo={editMode} setEditMode={setEditMode} />
+            <EditTodo
+               todo={editMode}
+               setEditMode={setEditMode}
+               dispatch={dispatch}
+            />
          ) : (
-            <AddTodo />
+            <AddTodo dispatch={dispatch} />
          )}
          <h3 title="IN PROGRESS">
             <span />
@@ -64,7 +74,12 @@ const App = () => {
          <ul>
             {state.in_progress.length > 0 ? (
                state.in_progress.map(todo => (
-                  <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
+                  <Todo
+                     key={todo.id}
+                     todo={todo}
+                     setEditMode={setEditMode}
+                     dispatch={dispatch}
+                  />
                ))
             ) : (
                <Empty>
@@ -79,7 +94,12 @@ const App = () => {
          <ul>
             {state.todo.length > 0 ? (
                state.todo.map(todo => (
-                  <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
+                  <Todo
+                     key={todo.id}
+                     todo={todo}
+                     setEditMode={setEditMode}
+                     dispatch={dispatch}
+                  />
                ))
             ) : (
                <Empty>
@@ -94,7 +114,12 @@ const App = () => {
          <ul>
             {state.done.length > 0 ? (
                state.done.map(todo => (
-                  <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
+                  <Todo
+                     key={todo.id}
+                     todo={todo}
+                     setEditMode={setEditMode}
+                     dispatch={dispatch}
+                  />
                ))
             ) : (
                <Empty>

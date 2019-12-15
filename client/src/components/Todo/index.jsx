@@ -10,10 +10,11 @@ import { ListItem } from './styles'
 // Assets
 import { CloseIcon, EditIcon } from '../../assets/icons'
 
-const Todo = ({ todo, setEditMode }) => {
+const Todo = ({ todo, setEditMode, dispatch }) => {
    const client = useApolloClient()
    const [deleteTodo] = useMutation(DELETE_TODO, {
       onCompleted: ({ deleteTodo: { data } }) => {
+         dispatch({ type: 'CLEAR_TODOS' })
          const { todos } = client.readQuery({ query: GET_TODOS })
          client.writeQuery({
             query: GET_TODOS,

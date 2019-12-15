@@ -10,10 +10,11 @@ import { Form } from './styles'
 // Assets
 import { AddIcon } from '../../assets/icons'
 
-const EditTodo = ({ todo, setEditMode }) => {
+const EditTodo = ({ todo, setEditMode, dispatch }) => {
    const client = useApolloClient()
    const [updateTodo] = useMutation(UPDATE_TODO, {
       onCompleted: ({ updateTodo: { data: todo } }) => {
+         dispatch({ type: 'CLEAR_TODOS' })
          const { todos } = client.readQuery({ query: GET_TODOS })
          const index = todos.findIndex(t => t.id === todo.id)
          todos[index] = todo
