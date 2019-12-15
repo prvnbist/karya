@@ -1,6 +1,9 @@
 import React from 'react'
 import { useMutation, useApolloClient } from '@apollo/react-hooks'
 
+// Context
+import { Context } from '../../context'
+
 // Queries
 import { ADD_TODO, GET_TODOS } from '../../queries'
 
@@ -10,7 +13,8 @@ import { Form } from './styles'
 // Assets
 import { AddIcon } from '../../assets/icons'
 
-const AddTodo = ({ dispatch }) => {
+const AddTodo = () => {
+   const { dispatch } = React.useContext(Context)
    const client = useApolloClient()
    const [title, setTitle] = React.useState('')
 

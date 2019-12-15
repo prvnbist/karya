@@ -1,6 +1,9 @@
 import React from 'react'
 import { useMutation, useApolloClient } from '@apollo/react-hooks'
 
+// Context
+import { Context } from '../../context'
+
 // Queries
 import { UPDATE_TODO, GET_TODOS } from '../../queries'
 
@@ -10,8 +13,10 @@ import { Form } from './styles'
 // Assets
 import { AddIcon } from '../../assets/icons'
 
-const EditTodo = ({ todo, setEditMode, dispatch }) => {
+const EditTodo = () => {
+   const { state, dispatch } = React.useContext(Context)
    const client = useApolloClient()
+
    const [updateTodo] = useMutation(UPDATE_TODO, {
       onCompleted: ({ updateTodo: { data: todo } }) => {
          dispatch({ type: 'CLEAR_TODOS' })
@@ -28,22 +33,22 @@ const EditTodo = ({ todo, setEditMode, dispatch }) => {
    const [status, setStatus] = React.useState('TODO')
 
    React.useEffect(() => {
-      if (todo?.title) {
-         setStatus(todo.status)
-         setTitle(todo.title)
+      if (state.editingTodo?.title) {
+         setStatus(state.editingTodo.status)
+         setTitle(state.editingTodo.title)
       }
-   }, [todo])
+   }, [state.editingTodo])
 
    const submit = e => {
       e.preventDefault()
       updateTodo({
          variables: {
-            id: todo.id,
-            ...(title !== todo.title && { title }),
-            ...(status !== todo.status && { status }),
+            id: state.editingTodo.id,
+            ...(title !== state.editingTodo.title && { title }),
+            ...(status !== state.editingTodo.status && { status }),
          },
       })
-      setEditMode(null)
+      dispatch({ type: 'EXIT_EDITING' })
    }
    return (
       <Form onSubmit={submit}>

@@ -1,6 +1,9 @@
 import React from 'react'
 import { useMutation, useApolloClient } from '@apollo/react-hooks'
 
+// Context
+import { Context } from '../../context'
+
 // Queries
 import { DELETE_TODO, GET_TODOS } from '../../queries'
 
@@ -10,8 +13,10 @@ import { ListItem } from './styles'
 // Assets
 import { CloseIcon, EditIcon } from '../../assets/icons'
 
-const Todo = ({ todo, setEditMode, dispatch }) => {
+const Todo = ({ todo }) => {
+   const { dispatch } = React.useContext(Context)
    const client = useApolloClient()
+
    const [deleteTodo] = useMutation(DELETE_TODO, {
       onCompleted: ({ deleteTodo: { data } }) => {
          dispatch({ type: 'CLEAR_TODOS' })
@@ -37,7 +42,9 @@ const Todo = ({ todo, setEditMode, dispatch }) => {
                   minute: 'numeric',
                }).format(todo.createdAt)}
             </span>
-            <button onClick={() => setEditMode(todo)}>
+            <button
+               onClick={() => dispatch({ type: 'EDIT_TODO', payload: todo })}
+            >
                <EditIcon color="#fff" />
             </button>
             <button onClick={() => deleteTodo({ variables: { id: todo.id } })}>

@@ -2,50 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
 
+// Context
+import { Context, initialState, reducers } from './context'
+
 // Components
 import { Todo, AddTodo, EditTodo } from './components'
 
 // Queries
 import { GET_TODOS } from './queries'
 
-const initialState = {
-   todo: [],
-   in_progress: [],
-   done: [],
-}
-
-const reducers = (state, action) => {
-   switch (action.type) {
-      case 'TODO':
-         return {
-            ...state,
-            todo: [action.payload, ...state.todo],
-         }
-      case 'IN_PROGRESS':
-         return {
-            ...state,
-            in_progress: [action.payload, ...state.in_progress],
-         }
-      case 'DONE':
-         return {
-            ...state,
-            done: [action.payload, ...state.done],
-         }
-      case 'CLEAR_TODOS':
-         return {
-            todo: [],
-            in_progress: [],
-            done: [],
-         }
-      default:
-         return state
-   }
-}
-
 const App = () => {
    const [state, dispatch] = React.useReducer(reducers, initialState)
    const { loading, error, data } = useQuery(GET_TODOS)
-   const [editMode, setEditMode] = React.useState(null)
+
    React.useEffect(() => {
       if (data?.todos) {
          data.todos.map(todo => {
@@ -57,77 +26,56 @@ const App = () => {
    if (loading) return 'Loading...'
    if (error) return `Error! ${error.message}`
    return (
-      <Wrapper>
-         {editMode ? (
-            <EditTodo
-               todo={editMode}
-               setEditMode={setEditMode}
-               dispatch={dispatch}
-            />
-         ) : (
-            <AddTodo dispatch={dispatch} />
-         )}
-         <h3 title="IN PROGRESS">
-            <span />
-            IN PROGRESS
-         </h3>
-         <ul>
-            {state.in_progress.length > 0 ? (
-               state.in_progress.map(todo => (
-                  <Todo
-                     key={todo.id}
-                     todo={todo}
-                     setEditMode={setEditMode}
-                     dispatch={dispatch}
-                  />
-               ))
-            ) : (
-               <Empty>
-                  <span>No todos in progress.</span>
-               </Empty>
-            )}
-         </ul>
-         <h3 title="TODO">
-            <span />
-            TODO
-         </h3>
-         <ul>
-            {state.todo.length > 0 ? (
-               state.todo.map(todo => (
-                  <Todo
-                     key={todo.id}
-                     todo={todo}
-                     setEditMode={setEditMode}
-                     dispatch={dispatch}
-                  />
-               ))
-            ) : (
-               <Empty>
-                  <span>All caught up.</span>
-               </Empty>
-            )}
-         </ul>
-         <h3 title="DONE">
-            <span />
-            DONE
-         </h3>
-         <ul>
-            {state.done.length > 0 ? (
-               state.done.map(todo => (
-                  <Todo
-                     key={todo.id}
-                     todo={todo}
-                     setEditMode={setEditMode}
-                     dispatch={dispatch}
-                  />
-               ))
-            ) : (
-               <Empty>
-                  <span>Get them todos.</span>
-               </Empty>
-            )}
-         </ul>
-      </Wrapper>
+      <Context.Provider value={{ state, dispatch }}>
+         <Wrapper>
+            {state.isEditing ? <EditTodo /> : <AddTodo />}
+            <h3 title="IN PROGRESS">
+               <span />
+               IN PROGRESS
+            </h3>
+            <ul>
+               {state.todos.in_progress.length > 0 ? (
+                  state.todos.in_progress.map(todo => (
+                     <Todo key={todo.id} todo={todo} />
+                  ))
+               ) : (
+                  <Empty>
+                     <span>No todos in progress.</span>
+                  </Empty>
+               )}
+            </ul>
+            <h3 title="TODO">
+               <span />
+               TODO
+            </h3>
+            <ul>
+               {state.todos.todo.length > 0 ? (
+                  state.todos.todo.map(todo => (
+                     <Todo key={todo.id} todo={todo} />
+                  ))
+               ) : (
+                  <Empty>
+                     <span>All caught up.</span>
+                  </Empty>
+               )}
+            </ul>
+            <h3 title="DONE">
+               <span />
+               DONE
+            </h3>
+            <ul>
+               {state.todos.done.length > 0 ? (
+                  state.todos.done.map(todo => (
+                     <Todo key={todo.id} todo={todo} />
+                  ))
+               ) : (
+                  <Empty>
+                     <span>Get them todos.</span>
+                  </Empty>
+               )}
+            </ul>
+         </Wrapper>
+      </Context.Provider>
    )
 }
 
