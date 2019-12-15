@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
 
 // Components
-import { Todo, AddTodo } from './components'
+import { Todo, AddTodo, EditTodo } from './components'
 
 // Queries
 import { GET_TODOS } from './queries'
@@ -39,6 +39,7 @@ const reducers = (state, action) => {
 const App = () => {
    const [state, dispatch] = React.useReducer(reducers, initialState)
    const { loading, error, data } = useQuery(GET_TODOS)
+   const [editMode, setEditMode] = React.useState(null)
    React.useEffect(() => {
       if (data?.todos) {
          data.todos.map(todo => {
@@ -51,23 +52,27 @@ const App = () => {
    if (error) return `Error! ${error.message}`
    return (
       <Wrapper>
-         <AddTodo />
+         {editMode ? (
+            <EditTodo todo={editMode} setEditMode={setEditMode} />
+         ) : (
+            <AddTodo />
+         )}
          <h3>IN PROGRESS</h3>
          <ul>
             {state.in_progress.map(todo => (
-               <Todo key={todo.id} todo={todo} />
+               <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
             ))}
          </ul>
          <h3>TODO</h3>
          <ul>
             {state.todo.map(todo => (
-               <Todo key={todo.id} todo={todo} />
+               <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
             ))}
          </ul>
          <h3>DONE</h3>
          <ul>
             {state.done.map(todo => (
-               <Todo key={todo.id} todo={todo} />
+               <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
             ))}
          </ul>
       </Wrapper>

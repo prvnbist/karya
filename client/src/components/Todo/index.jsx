@@ -8,9 +8,9 @@ import { DELETE_TODO, GET_TODOS } from '../../queries'
 import { ListItem } from './styles'
 
 // Assets
-import { CloseIcon } from '../../assets/icons'
+import { CloseIcon, EditIcon } from '../../assets/icons'
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, setEditMode }) => {
    const client = useApolloClient()
    const [deleteTodo] = useMutation(DELETE_TODO, {
       onCompleted: ({ deleteTodo: { data } }) => {
@@ -36,6 +36,9 @@ const Todo = ({ todo }) => {
                   minute: 'numeric',
                }).format(todo.createdAt)}
             </span>
+            <button onClick={() => setEditMode(todo)}>
+               <EditIcon color="#fff" />
+            </button>
             <button onClick={() => deleteTodo({ variables: { id: todo.id } })}>
                <CloseIcon color="#fff" />
             </button>
