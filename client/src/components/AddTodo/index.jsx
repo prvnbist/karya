@@ -12,6 +12,8 @@ import { AddIcon } from '../../assets/icons'
 
 const AddTodo = () => {
    const client = useApolloClient()
+   const [title, setTitle] = React.useState('')
+
    const [addTodo] = useMutation(ADD_TODO, {
       onCompleted: ({ addTodo: { data: todo } }) => {
          const { todos } = client.readQuery({ query: GET_TODOS })
@@ -21,25 +23,26 @@ const AddTodo = () => {
          })
       },
    })
-   const [todo, setTodo] = React.useState('')
 
    const submit = e => {
       e.preventDefault()
-      addTodo({
-         variables: {
-            title: todo,
-            tags: [],
-         },
-      })
-      setTodo('')
+      if (title) {
+         addTodo({
+            variables: {
+               title,
+               tags: [],
+            },
+         })
+      }
+      setTitle('')
    }
    return (
       <Form onSubmit={submit}>
          <input
             type="text"
-            value={todo}
+            value={title}
             placeholder="Enter a todo"
-            onChange={e => setTodo(e.target.value)}
+            onChange={e => setTitle(e.target.value)}
          />
          <button type="submit">
             <AddIcon color="#fff" />
