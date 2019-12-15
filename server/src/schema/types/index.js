@@ -4,7 +4,7 @@ module.exports = gql`
    type Todo {
       id: ID!
       title: String!
-      labels: [String]!
+      label: String
       status: Status
       createdAt: String
       updatedAt: String

@@ -18,9 +18,9 @@ const resolvers = {
       },
    },
    Mutation: {
-      addTodo: async (_, { title, labels }) => {
+      addTodo: async (_, { title, label }) => {
          try {
-            const todo = await Todo.create({ title, labels })
+            const todo = await Todo.create({ title, label })
             return {
                success: true,
                data: todo,
@@ -52,30 +52,16 @@ const resolvers = {
       },
       updateTodo: async (_, { id, ...args }) => {
          try {
-            let newLabels = []
-            if (args.labels) {
-               const { labels } = await Todo.findOne(
-                  { _id: id },
-                  (error, result) => {
-                     if (error) throw new Error(error)
-                     return result
-                  }
-               )
-               newLabels = await args.labels.filter(
-                  label => !labels.includes(label)
-               )
-            }
-
-            const update = {
+            const data = {
                $set: {
                   ...(args.title && { title: args.title }),
-                  ...(args.labels && { labels: [...labels, ...newLabels] }),
+                  ...(args.label && { labels: args.label }),
                   ...(args.status && { status: args.status }),
                },
             }
             const todo = Todo.findByIdAndUpdate(
                id,
-               update,
+               data,
                { new: true },
                (error, result) => {
                   if (error) throw new Error(error)

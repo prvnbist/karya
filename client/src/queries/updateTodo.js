@@ -4,15 +4,15 @@ const UPDATE_TODO = gql`
    mutation updateTodo(
       $id: ID!
       $title: String
-      $labels: [String]
+      $label: String
       $status: Status
    ) {
-      updateTodo(id: $id, title: $title, labels: $labels, status: $status) {
+      updateTodo(id: $id, title: $title, label: $label, status: $status) {
          ... on Success {
             success
             data {
                id
-               labels
+               label
                title
                status
                createdAt
