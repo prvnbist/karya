@@ -52,14 +52,17 @@ const resolvers = {
       },
       updateTodo: async (_, { id, ...args }) => {
          try {
-            const { tags } = await Todo.findOne(
-               { _id: id },
-               (error, result) => {
-                  if (error) throw new Error(error)
-                  return result
-               }
-            )
-            const newTags = await args.tags.filter(tag => !tags.includes(tag))
+            let newTags = []
+            if (args.tags) {
+               const { tags } = await Todo.findOne(
+                  { _id: id },
+                  (error, result) => {
+                     if (error) throw new Error(error)
+                     return result
+                  }
+               )
+               newTags = await args.tags.filter(tag => !tags.includes(tag))
+            }
 
             const update = {
                $set: {
