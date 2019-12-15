@@ -17,7 +17,7 @@ export const ListItem = styled.li`
       }
       & > div {
          span {
-            color: #fff;
+            display: none;
          }
       }
    }
