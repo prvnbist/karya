@@ -6,6 +6,7 @@ const GET_TODOS = gql`
          id
          tags
          title
+         status
          createdAt
          updatedAt
       }
