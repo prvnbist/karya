@@ -5,8 +5,14 @@ module.exports = gql`
       id: ID!
       title: String!
       tags: [String]!
+      status: Status
       createdAt: String
       updatedAt: String
+   }
+   enum Status {
+      TODO
+      IN_PROGRESS
+      DONE
    }
    type Success {
       success: Boolean

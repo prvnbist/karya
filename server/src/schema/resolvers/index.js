@@ -65,6 +65,7 @@ const resolvers = {
                $set: {
                   ...(args.title && { title: args.title }),
                   ...(args.tags && { tags: [...tags, ...newTags] }),
+                  ...(args.status && { status: args.status }),
                },
             }
             const todo = Todo.findByIdAndUpdate(
