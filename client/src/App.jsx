@@ -62,27 +62,45 @@ const App = () => {
             IN PROGRESS
          </h3>
          <ul>
-            {state.in_progress.map(todo => (
-               <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
-            ))}
+            {state.in_progress.length > 0 ? (
+               state.in_progress.map(todo => (
+                  <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
+               ))
+            ) : (
+               <Empty>
+                  <span>No todos in progress.</span>
+               </Empty>
+            )}
          </ul>
          <h3 title="TODO">
             <span />
             TODO
          </h3>
          <ul>
-            {state.todo.map(todo => (
-               <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
-            ))}
+            {state.todo.length > 0 ? (
+               state.todo.map(todo => (
+                  <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
+               ))
+            ) : (
+               <Empty>
+                  <span>All caught up.</span>
+               </Empty>
+            )}
          </ul>
          <h3 title="DONE">
             <span />
             DONE
          </h3>
          <ul>
-            {state.done.map(todo => (
-               <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
-            ))}
+            {state.done.length > 0 ? (
+               state.done.map(todo => (
+                  <Todo key={todo.id} todo={todo} setEditMode={setEditMode} />
+               ))
+            ) : (
+               <Empty>
+                  <span>Get them todos.</span>
+               </Empty>
+            )}
          </ul>
       </Wrapper>
    )
@@ -127,5 +145,28 @@ const Wrapper = styled.div`
    }
    ul {
       margin-bottom: 16px;
+   }
+`
+
+const Empty = styled.div`
+   width: 100%;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 0 12px;
+   position: relative;
+   span {
+      background: #fff;
+      padding: 0 8px;
+   }
+   &:before {
+      content: '';
+      width: 100%;
+      height: 2px;
+      top: 20px;
+      z-index: -1;
+      position: absolute;
+      background: #f5e7e7;
    }
 `
