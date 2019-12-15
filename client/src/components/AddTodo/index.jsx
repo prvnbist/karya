@@ -35,7 +35,7 @@ const AddTodo = () => {
          addTodo({
             variables: {
                title,
-               tags: [],
+               labels: [],
             },
          })
       }

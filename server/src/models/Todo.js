@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const schema = new mongoose.Schema(
    {
       title: String,
-      tags: { type: Array, default: [] },
+      labels: { type: Array, default: [] },
       status: {
          type: String,
          enum: ['TODO', 'IN_PROGRESS', 'DONE'],

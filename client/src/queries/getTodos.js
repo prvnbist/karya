@@ -4,7 +4,7 @@ const GET_TODOS = gql`
    query {
       todos {
          id
-         tags
+         labels
          title
          status
          createdAt

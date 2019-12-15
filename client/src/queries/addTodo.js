@@ -1,13 +1,13 @@
 import gql from 'graphql-tag'
 
 const ADD_TODO = gql`
-   mutation addTodo($title: String!, $tags: [String]!) {
-      addTodo(title: $title, tags: $tags) {
+   mutation addTodo($title: String!, $labels: [String]!) {
+      addTodo(title: $title, labels: $labels) {
          ... on Success {
             success
             data {
                id
-               tags
+               labels
                title
                status
                createdAt

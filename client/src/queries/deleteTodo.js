@@ -7,7 +7,7 @@ const DELETE_TODO = gql`
             success
             data {
                id
-               tags
+               labels
                title
                status
                createdAt
