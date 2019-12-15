@@ -9,6 +9,7 @@ const DELETE_TODO = gql`
                id
                tags
                title
+               status
                createdAt
                updatedAt
             }
