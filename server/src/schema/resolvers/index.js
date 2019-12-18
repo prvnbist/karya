@@ -25,7 +25,9 @@ const resolvers = {
       },
       labels: async () => {
          try {
-            const labels = await Label.find().sort({ createdAt: -1 })
+            const labels = await Label.find()
+               .populate('todos')
+               .sort({ createdAt: -1 })
             return labels
          } catch (error) {
             return error.message
@@ -39,6 +41,11 @@ const resolvers = {
                title,
                ...(label && { label }),
             })
+            label &&
+               (await Label.findOneAndUpdate(
+                  { title: label },
+                  { $push: { todos: todo.id } }
+               ))
             return {
                success: true,
                data: todo,
@@ -81,8 +88,14 @@ const resolvers = {
                id,
                data,
                { new: true },
-               (error, result) => {
+               async (error, result) => {
                   if (error) throw new Error(error)
+                  if (args.label) {
+                     await Label.findOneAndUpdate(
+                        { title: args.label },
+                        { $push: { todos: result.id } }
+                     )
+                  }
                   return result
                }
             )
@@ -123,6 +136,30 @@ const resolvers = {
             return {
                success: true,
                data: result,
+            }
+         } catch (error) {
+            return {
+               success: false,
+               error: error.message,
+            }
+         }
+      },
+      updateLabel: async (_, { id, ...args }) => {
+         try {
+            const data = {
+               $set: {
+                  ...(args.title && { title: args.title }),
+               },
+               $push: {
+                  ...(args.todo && { todos: args.todo }),
+               },
+            }
+            const label = await Label.findByIdAndUpdate(id, data, {
+               new: true,
+            }).populate('todos')
+            return {
+               success: true,
+               data: label,
             }
          } catch (error) {
             return {
