@@ -8,7 +8,7 @@ const schema = new Schema(
       todos: [
          {
             type: Schema.Types.ObjectId,
-            ref: 'todos',
+            ref: 'Todo',
          },
       ],
    },
