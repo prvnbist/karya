@@ -1,4 +1,5 @@
 const Todo = require('../../models/Todo')
+const Label = require('../../models/Label')
 
 const resolvers = {
    TodoResult: {
@@ -7,11 +8,25 @@ const resolvers = {
          return 'TodoSuccess'
       },
    },
+   LabelResult: {
+      __resolveType: type => {
+         if (type.error) return 'Error'
+         return 'LabelSuccess'
+      },
+   },
    Query: {
       todos: async () => {
          try {
             const todos = await Todo.find().sort({ createdAt: -1 })
             return todos
+         } catch (error) {
+            return error.message
+         }
+      },
+      labels: async () => {
+         try {
+            const labels = await Label.find().sort({ createdAt: -1 })
+            return labels
          } catch (error) {
             return error.message
          }
