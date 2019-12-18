@@ -10,5 +10,7 @@ module.exports = gql`
          label: String
          status: Status
       ): TodoResult
+
+      addLabel(title: String!): LabelResult
    }
 `

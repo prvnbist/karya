@@ -97,6 +97,22 @@ const resolvers = {
             }
          }
       },
+      addLabel: async (_, { title }) => {
+         try {
+            const label = await Label.create({
+               title,
+            })
+            return {
+               success: true,
+               data: label,
+            }
+         } catch (error) {
+            return {
+               success: false,
+               error: error.message,
+            }
+         }
+      },
    },
 }
 module.exports = resolvers
