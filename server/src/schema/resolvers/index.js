@@ -1,10 +1,10 @@
 const Todo = require('../../models/Todo')
 
 const resolvers = {
-   Result: {
+   TodoResult: {
       __resolveType: type => {
          if (type.error) return 'Error'
-         return 'Success'
+         return 'TodoSuccess'
       },
    },
    Query: {
@@ -20,7 +20,10 @@ const resolvers = {
    Mutation: {
       addTodo: async (_, { title, label }) => {
          try {
-            const todo = await Todo.create({ title, label })
+            const todo = await Todo.create({
+               title,
+               ...(label && { label }),
+            })
             return {
                success: true,
                data: todo,
@@ -55,7 +58,7 @@ const resolvers = {
             const data = {
                $set: {
                   ...(args.title && { title: args.title }),
-                  ...(args.label && { labels: args.label }),
+                  ...(args.label && { label: args.label }),
                   ...(args.status && { status: args.status }),
                },
             }

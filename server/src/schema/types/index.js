@@ -14,7 +14,7 @@ module.exports = gql`
       IN_PROGRESS
       DONE
    }
-   type Success {
+   type TodoSuccess {
       success: Boolean
       data: Todo
    }
@@ -22,5 +22,5 @@ module.exports = gql`
       success: Boolean
       error: String
    }
-   union Result = Success | Error
+   union TodoResult = TodoSuccess | Error
 `
