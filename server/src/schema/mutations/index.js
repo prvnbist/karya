@@ -12,5 +12,6 @@ module.exports = gql`
       ): TodoResult
 
       addLabel(title: String!): LabelResult
+      deleteLabel(id: ID!): LabelResult
    }
 `

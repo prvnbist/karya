@@ -113,6 +113,24 @@ const resolvers = {
             }
          }
       },
+      deleteLabel: async (_, { id }) => {
+         try {
+            let result
+            await Label.findByIdAndDelete(id, (error, label) => {
+               if (error) throw new Error(error)
+               result = label
+            })
+            return {
+               success: true,
+               data: result,
+            }
+         } catch (error) {
+            return {
+               success: false,
+               error: error.message,
+            }
+         }
+      },
    },
 }
 module.exports = resolvers
