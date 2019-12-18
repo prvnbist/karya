@@ -18,9 +18,21 @@ module.exports = gql`
       success: Boolean
       data: Todo
    }
+   type Label {
+      id: ID!
+      title: String!
+      todos: [Todo]!
+      createdAt: String
+      updatedAt: String
+   }
+   type LabelSuccess {
+      success: Boolean
+      data: Label
+   }
    type Error {
       success: Boolean
       error: String
    }
    union TodoResult = TodoSuccess | Error
+   union LabelResult = LabelSuccess | Error
 `
