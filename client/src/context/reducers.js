@@ -46,6 +46,11 @@ const reducers = (state, action) => {
             editingTodo: {},
          }
       }
+      case 'SET_LABELS':
+         return {
+            ...state,
+            labels: action.payload,
+         }
       default:
          return state
    }
