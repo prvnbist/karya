@@ -32,19 +32,21 @@ const Sidebar = () => {
          <main>
             <h3>Labels</h3>
             <ul>
-               {state.labels.map(label => (
-                  <Label key={label.id}>
-                     <Title>
-                        <span>
-                           <LabelIcon />
-                        </span>
-                        <h4>{label.title}</h4>
-                     </Title>
-                     {label.todos_count > 0 && (
-                        <Count>{label.todos_count}</Count>
-                     )}
-                  </Label>
-               ))}
+               {state.labels.length > 0 &&
+                  state.labels.map(label => (
+                     <Label key={label.id}>
+                        <Title>
+                           <span>
+                              <LabelIcon />
+                           </span>
+                           <h4>{label.title}</h4>
+                        </Title>
+                        {label.todos_count > 0 && (
+                           <Count>{label.todos_count}</Count>
+                        )}
+                     </Label>
+                  ))}
+               {state.labels.length === 0 && <NoLabels>No labels</NoLabels>}
             </ul>
          </main>
       </StyledSidebar>
@@ -72,6 +74,12 @@ const StyledSidebar = styled.div`
          margin-bottom: 8px;
       }
    }
+`
+
+const NoLabels = styled.li`
+   height: 32px;
+   padding: 0 16px;
+   list-style: none;
 `
 
 const Label = styled.li`
