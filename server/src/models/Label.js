@@ -11,6 +11,7 @@ const schema = new Schema(
             ref: 'Todo',
          },
       ],
+      todos_count: { type: Number, default: 0 },
    },
    {
       timestamps: true,

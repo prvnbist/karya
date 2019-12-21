@@ -44,7 +44,7 @@ const resolvers = {
             label &&
                (await Label.findOneAndUpdate(
                   { title: label },
-                  { $push: { todos: todo.id } }
+                  { $push: { todos: todo.id }, $inc: { todos_count: 1 } }
                ))
             return {
                success: true,
@@ -91,10 +91,11 @@ const resolvers = {
                async (error, result) => {
                   if (error) throw new Error(error)
                   if (args.label) {
-                     await Label.findOneAndUpdate(
-                        { title: args.label },
-                        { $push: { todos: result.id } }
-                     )
+                     const update = {
+                        $push: { todos: result.id },
+                        $inc: { todos_count: 1 },
+                     }
+                     await Label.findOneAndUpdate({ title: args.label }, update)
                   }
                   return result
                }
@@ -146,15 +147,14 @@ const resolvers = {
       },
       updateLabel: async (_, { id, ...args }) => {
          try {
-            const data = {
+            const update = {
                $set: {
                   ...(args.title && { title: args.title }),
                },
-               $push: {
-                  ...(args.todo && { todos: args.todo }),
-               },
+               ...(args.todo && { $push: { todos: args.todo } }),
+               ...(args.todo && { $inc: { todos_count: 1 } }),
             }
-            const label = await Label.findByIdAndUpdate(id, data, {
+            const label = await Label.findByIdAndUpdate(id, update, {
                new: true,
             }).populate('todos')
             return {

@@ -22,6 +22,7 @@ module.exports = gql`
       id: ID!
       title: String!
       todos: [Todo]!
+      todos_count: Int
       createdAt: String
       updatedAt: String
    }
