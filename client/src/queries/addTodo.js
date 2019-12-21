@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 const ADD_TODO = gql`
    mutation addTodo($title: String!, $label: String) {
       addTodo(title: $title, label: $label) {
-         ... on Success {
+         ... on TodoSuccess {
             success
             data {
                id

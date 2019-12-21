@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 const DELETE_TODO = gql`
    mutation deleteTodo($id: ID!) {
       deleteTodo(id: $id) {
-         ... on Success {
+         ... on TodoSuccess {
             success
             data {
                id

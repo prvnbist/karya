@@ -8,7 +8,7 @@ const UPDATE_TODO = gql`
       $status: Status
    ) {
       updateTodo(id: $id, title: $title, label: $label, status: $status) {
-         ... on Success {
+         ... on TodoSuccess {
             success
             data {
                id
