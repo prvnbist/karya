@@ -18,7 +18,10 @@ const Sidebar = () => {
 
    React.useEffect(() => {
       if (data?.labels) {
-         dispatch({ type: 'SET_LABELS', payload: data.labels })
+         const labels = data.labels.sort((a, b) =>
+            a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1
+         )
+         dispatch({ type: 'SET_LABELS', payload: labels })
       }
    }, [data])
 
