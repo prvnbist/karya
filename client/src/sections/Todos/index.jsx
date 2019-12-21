@@ -116,14 +116,16 @@ const Heading = styled.h3`
    border-radius: 16px;
    display: inline-block;
    &:nth-of-type(1) {
-      background: #5da6ff;
+      color: #7358f6;
+      background: #d1e6ff;
    }
    &:nth-of-type(2) {
       color: #585454;
-      background: #f5e7e7;
+      background: #e8e7ec;
    }
    &:nth-of-type(3) {
-      background: #35da35;
+      color: #2db52d;
+      background: #9dfb9d;
    }
    span {
       width: 8px;

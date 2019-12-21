@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const Form = styled.form`
-   height: 56px;
+   height: 40px;
    display: grid;
-   margin-bottom: 8px;
+   margin: 16px 0;
    align-items: center;
    grid-column-gap: 16px;
    grid-template-columns: 1fr auto;
