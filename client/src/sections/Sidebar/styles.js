@@ -10,11 +10,61 @@ export const StyledSidebar = styled.div`
       padding: 0 16px;
    }
    main {
+      > div:first-child {
+         height: 24px;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding: 0 16px;
+         span {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            svg {
+               stroke: #8e929d;
+            }
+         }
+      }
       h3 {
          color: #bac0cf;
          font-size: 14px;
          letter-spacing: 0.5px;
          text-transform: uppercase;
+      }
+   }
+`
+
+export const CreateLabelForm = styled.div`
+   display: grid;
+   align-items: center;
+   grid-template-columns: 1fr auto;
+   grid-column-gap: 12px;
+   height: 40px;
+   padding: 0 16px;
+   input,
+   button {
+      height: 28px;
+      border-radius: 4px;
+   }
+   input {
+      width: 100%;
+      font-size: 13px;
+      padding-left: 8px;
+      border-radius: 4px;
+      border: 1px solid #e6e6e6;
+      &:focus {
+         outline: 1px solid #6d51f4;
+      }
+   }
+   button {
+      padding: 0 6px;
+      background: transparent;
+      border: 1px solid #6d51f4;
+      &:focus {
+         outline: 1px solid #6d51f4;
       }
    }
 `
