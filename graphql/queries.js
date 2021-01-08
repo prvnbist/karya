@@ -10,11 +10,22 @@ export const QUERIES = {
          }
       }
    `,
+   PROJECT: gql`
+      subscription project($id: uuid!) {
+         project(id: $id) {
+            id
+            title
+            created_at
+            description
+         }
+      }
+   `,
    TASKS: gql`
       subscription tasks($where: task_bool_exp!) {
          tasks(where: $where) {
             id
             title
+            created_at
             description
          }
       }
