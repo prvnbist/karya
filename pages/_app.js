@@ -6,8 +6,7 @@ import {
    createHttpLink,
    ApolloProvider,
 } from '@apollo/client'
-import * as ws from 'ws'
-import { GlobalStyles } from 'twin.macro'
+import tw, { GlobalStyles } from 'twin.macro'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { WebSocketLink } from '@apollo/client/link/ws'
 
@@ -61,7 +60,9 @@ const client = new ApolloClient({
 const App = ({ Component, pageProps }) => (
    <ApolloProvider client={client}>
       <GlobalStyles />
-      <Component {...pageProps} />
+      <div css={tw`bg-gray-100 h-screen w-screen overflow-hidden`}>
+         <Component {...pageProps} />
+      </div>
    </ApolloProvider>
 )
 
