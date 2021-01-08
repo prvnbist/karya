@@ -10,6 +10,8 @@ import tw, { GlobalStyles } from 'twin.macro'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { WebSocketLink } from '@apollo/client/link/ws'
 
+import '../styles/global.css'
+
 const wssLink = process.browser
    ? new WebSocketLink({
         uri: process.env.HASURA_WSS_URL,
@@ -60,7 +62,7 @@ const client = new ApolloClient({
 const App = ({ Component, pageProps }) => (
    <ApolloProvider client={client}>
       <GlobalStyles />
-      <div css={tw`bg-gray-100 h-screen w-screen overflow-hidden`}>
+      <div css={tw`px-4 bg-gray-100 h-screen w-screen overflow-hidden`}>
          <Component {...pageProps} />
       </div>
    </ApolloProvider>
