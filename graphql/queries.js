@@ -10,4 +10,13 @@ export const QUERIES = {
          }
       }
    `,
+   TASKS: gql`
+      subscription tasks($where: task_bool_exp!) {
+         tasks(where: $where) {
+            id
+            title
+            description
+         }
+      }
+   `,
 }
