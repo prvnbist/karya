@@ -1,8 +1,10 @@
 import React from 'react'
 import Head from 'next/head'
+import tw from 'twin.macro'
 import { useRouter } from 'next/router'
 import { useSubscription } from '@apollo/client'
 
+import Icon from '../../icons'
 import { QUERIES } from '../../graphql'
 
 export default function Project() {
@@ -15,7 +17,10 @@ export default function Project() {
    const { loading: tasksLoading, data: { tasks = [] } = {} } = useSubscription(
       QUERIES.TASKS,
       {
-         variables: { where: { projects: { project: { id: { _eq: id } } } } },
+         variables: {
+            order_by: { created_at: 'desc' },
+            where: { projects: { project: { id: { _eq: id } } } },
+         },
       }
    )
    if (projectLoading) return <div>loading...</div>
@@ -26,17 +31,38 @@ export default function Project() {
             <link rel="icon" href="/favicon.ico" />
          </Head>
          <main>
-            <h1 title={project?.title || ''}>{project?.title || ''}</h1>
-            <p>{project?.description || ''}</p>
-            {project?.created_at && (
-               <span title={project?.created_at}>
-                  {new Intl.DateTimeFormat('en-US', {
-                     year: 'numeric',
-                     month: 'short',
-                     day: 'numeric',
-                  }).format(new Date(project?.created_at))}
-               </span>
-            )}
+            <h1
+               css={tw`text-2xl text-gray-800 py-2 border-b border-gray-300 mb-3`}
+            >
+               Project Details
+            </h1>
+            <section
+               css={tw`bg-white border border-gray-200 py-4 px-5 rounded`}
+            >
+               <section css={tw`mb-1 flex items-center justify-between`}>
+                  <h2 title={project?.title || ''} css={tw`text-xl`}>
+                     {project?.title || ''}
+                  </h2>
+                  {project?.created_at && (
+                     <span
+                        title={project?.created_at}
+                        css={tw`uppercase tracking-wider font-medium text-sm text-gray-600`}
+                     >
+                        {new Intl.DateTimeFormat('en-US', {
+                           year: 'numeric',
+                           month: 'short',
+                           day: 'numeric',
+                        }).format(new Date(project?.created_at))}
+                     </span>
+                  )}
+               </section>
+               <p css={tw`text-gray-600`}>{project?.description || ''}</p>
+            </section>
+            <h2
+               css={tw`mt-3 text-xl text-gray-800 py-1 border-b border-gray-300 mb-3`}
+            >
+               Tasks
+            </h2>
             {tasksLoading ? (
                <div>loading...</div>
             ) : (
@@ -44,21 +70,9 @@ export default function Project() {
                   {tasks.length === 0 ? (
                      <span>No tasks available.</span>
                   ) : (
-                     <ul>
+                     <ul css={tw`space-y-2`}>
                         {tasks.map(task => (
-                           <li key={task.id}>
-                              <h2 title={task.title}>{task.title}</h2>
-                              <p>{task?.description}</p>
-                              {task?.created_at && (
-                                 <span>
-                                    {new Intl.DateTimeFormat('en-US', {
-                                       year: 'numeric',
-                                       month: 'short',
-                                       day: 'numeric',
-                                    }).format(new Date(task?.created_at))}
-                                 </span>
-                              )}
-                           </li>
+                           <Task key={task.id} task={task} />
                         ))}
                      </ul>
                   )}
@@ -66,5 +80,59 @@ export default function Project() {
             )}
          </main>
       </div>
+   )
+}
+
+const Task = ({ task }) => {
+   const tags = task.tags.map(({ tag }) => tag)
+   return (
+      <li css={tw`bg-white border border-gray-200 py-4 px-5 rounded`}>
+         <section css={tw`mb-1 flex items-center justify-between`}>
+            <h2 title={task.title} css={tw`text-xl mb-1`}>
+               {task.title}
+            </h2>
+            {task?.created_at && (
+               <span
+                  title={task?.created_at}
+                  css={tw`px-2 py-1 bg-green-200 text-green-700 rounded uppercase tracking-wider font-medium text-sm text-gray-600`}
+               >
+                  {new Intl.DateTimeFormat('en-US', {
+                     year: 'numeric',
+                     month: 'short',
+                     day: 'numeric',
+                  }).format(new Date(task?.created_at))}
+               </span>
+            )}
+         </section>
+         <p css={tw`text-gray-600 mb-3`}>{task?.description}</p>
+         <section css={tw`flex items-center`}>
+            <span
+               css={tw`inline-flex items-center justify-center h-6 w-6 mr-2`}
+            >
+               <Icon.Tag css={tw`stroke-current text-gray-400`} />
+            </span>
+            <ul css={tw`flex items-center space-x-2`}>
+               {tags.length === 0 ? (
+                  <span>No tags</span>
+               ) : (
+                  <>
+                     {tags.map(tag => (
+                        <Tag key={tag.id} tag={tag} />
+                     ))}
+                  </>
+               )}
+            </ul>
+         </section>
+      </li>
+   )
+}
+
+const Tag = ({ tag }) => {
+   return (
+      <li
+         css={tw`px-2 px-1 rounded bg-gray-200 border border-gray-300 text-gray-600 uppercase tracking-wider text-sm font-medium`}
+      >
+         {tag.title}
+      </li>
    )
 }

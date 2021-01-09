@@ -21,12 +21,18 @@ export const QUERIES = {
       }
    `,
    TASKS: gql`
-      subscription tasks($where: task_bool_exp!) {
-         tasks(where: $where) {
+      subscription tasks($where: task_bool_exp!, $order_by: [task_order_by!]) {
+         tasks(where: $where, order_by: $order_by) {
             id
             title
             created_at
             description
+            tags(order_by: { created_at: desc }) {
+               tag {
+                  id
+                  title
+               }
+            }
          }
       }
    `,
