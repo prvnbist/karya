@@ -5,6 +5,7 @@ import tw from 'twin.macro'
 import { useSubscription } from '@apollo/client'
 
 import { QUERIES } from '../graphql'
+import { Loader } from '../components'
 
 export default function Home() {
    const { loading, data: { projects = [] } = {} } = useSubscription(
@@ -23,7 +24,9 @@ export default function Home() {
                Projects
             </h1>
             {loading ? (
-               <div>loading...</div>
+               <div css={tw`h-12`}>
+                  <Loader />
+               </div>
             ) : (
                <>
                   {projects.length === 0 ? (

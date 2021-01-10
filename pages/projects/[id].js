@@ -6,6 +6,7 @@ import { useSubscription } from '@apollo/client'
 
 import Icon from '../../icons'
 import { QUERIES } from '../../graphql'
+import { Loader } from '../../components'
 
 export default function Project() {
    const router = useRouter()
@@ -23,7 +24,7 @@ export default function Project() {
          },
       }
    )
-   if (projectLoading) return <div>loading...</div>
+   if (projectLoading) return <Loader />
    return (
       <div>
          <Head>
@@ -31,11 +32,17 @@ export default function Project() {
             <link rel="icon" href="/favicon.ico" />
          </Head>
          <main>
-            <h1
-               css={tw`text-2xl text-gray-800 py-2 border-b border-gray-300 mb-3`}
+            <header
+               css={tw`flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
             >
-               Project Details
-            </h1>
+               <span
+                  onClick={() => router.back()}
+                  css={tw`inline-flex items-center justify-center h-10 w-10 cursor-pointer`}
+               >
+                  <Icon.Back size="24" css={tw`stroke-current`} />
+               </span>
+               <h1 css={tw`text-2xl text-gray-800`}>Project Details</h1>
+            </header>
             <section
                css={tw`bg-white border border-gray-200 py-4 px-5 rounded`}
             >
@@ -64,7 +71,9 @@ export default function Project() {
                Tasks
             </h2>
             {tasksLoading ? (
-               <div>loading...</div>
+               <div css={tw`h-12`}>
+                  <Loader />
+               </div>
             ) : (
                <>
                   {tasks.length === 0 ? (
