@@ -20,6 +20,18 @@ export const QUERIES = {
          }
       }
    `,
+   PROJECT_AGGREGATE: gql`
+      subscription projects(
+         $where: project_bool_exp = {}
+         $order_by: [project_order_by!] = {}
+      ) {
+         projects: project_aggregate(where: $where, order_by: $order_by) {
+            aggregate {
+               count(columns: id)
+            }
+         }
+      }
+   `,
    TASKS: gql`
       subscription tasks($where: task_bool_exp!, $order_by: [task_order_by!]) {
          tasks(where: $where, order_by: $order_by) {
