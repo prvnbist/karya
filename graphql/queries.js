@@ -48,6 +48,33 @@ export const QUERIES = {
          }
       }
    `,
+   TAG: gql`
+      subscription tag($id: uuid!) {
+         tag(id: $id) {
+            id
+            title
+            tasks: tasks_aggregate {
+               aggregate {
+                  count
+               }
+               nodes {
+                  task {
+                     id
+                     title
+                     created_at
+                     description
+                     tags(order_by: { created_at: desc }) {
+                        tag {
+                           id
+                           title
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   `,
    TAGS: gql`
       subscription tags {
          tags: tag_aggregate(order_by: { title: asc }) {
