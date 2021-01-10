@@ -10,6 +10,7 @@ export default function Home() {
    const { data: { projects = {} } = {} } = useSubscription(
       QUERIES.PROJECT_AGGREGATE
    )
+   const { data: { tags = {} } = {} } = useSubscription(QUERIES.TAG_AGGREGATE)
    return (
       <div>
          <Head>
@@ -29,6 +30,15 @@ export default function Home() {
                         css={tw`block cursor-pointer transition-all transition-shadow duration-500 ease-in-out bg-white border border-gray-200 py-4 px-5 rounded hover:shadow-xl`}
                      >
                         Projects ({projects?.aggregate?.count || 0})
+                     </a>
+                  </Link>
+               </li>
+               <li>
+                  <Link href="/tags">
+                     <a
+                        css={tw`block cursor-pointer transition-all transition-shadow duration-500 ease-in-out bg-white border border-gray-200 py-4 px-5 rounded hover:shadow-xl`}
+                     >
+                        Tags ({tags?.aggregate?.count || 0})
                      </a>
                   </Link>
                </li>

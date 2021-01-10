@@ -48,4 +48,31 @@ export const QUERIES = {
          }
       }
    `,
+   TAGS: gql`
+      subscription tags {
+         tags: tag_aggregate(order_by: { title: asc }) {
+            aggregate {
+               count(columns: id)
+            }
+            nodes {
+               id
+               title
+               tasks: tasks_aggregate {
+                  aggregate {
+                     count
+                  }
+               }
+            }
+         }
+      }
+   `,
+   TAG_AGGREGATE: gql`
+      subscription tags {
+         tags: tag_aggregate(order_by: { title: asc }) {
+            aggregate {
+               count(columns: id)
+            }
+         }
+      }
+   `,
 }
