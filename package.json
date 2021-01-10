@@ -23,7 +23,11 @@
    },
    "babelMacros": {
       "twin": {
-         "preset": "emotion"
+         "preset": "emotion",
+         "config": "tailwind.config.js",
+         "dataTwProp": true,
+         "debugPlugins": false,
+         "debug": false
       }
    },
    "devDependencies": {}

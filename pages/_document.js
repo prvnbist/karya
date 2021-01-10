@@ -1,5 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
+import tw from 'twin.macro'
+
 class MyDocument extends Document {
    static async getInitialProps(ctx) {
       const initialProps = await Document.getInitialProps(ctx)
@@ -16,7 +18,7 @@ class MyDocument extends Document {
                   rel="stylesheet"
                />
             </Head>
-            <body>
+            <body css={tw`overflow-hidden m-0 h-screen w-screen`}>
                <Main />
                <NextScript />
             </body>
