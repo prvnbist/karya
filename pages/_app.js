@@ -99,13 +99,15 @@ const App = ({ Component, pageProps }) => {
             <Loader />
          </div>
       )
-   if (!session.authenticated)
-      return <AuthForm session={session} setSession={setSession} />
    return (
       <ApolloProvider client={client}>
          <GlobalStyles />
          <div css={tw`px-4 bg-gray-100 h-screen w-screen overflow-hidden`}>
-            <Component {...pageProps} />
+            {session.authenticated ? (
+               <Component {...pageProps} />
+            ) : (
+               <AuthForm session={session} setSession={setSession} />
+            )}
          </div>
       </ApolloProvider>
    )
@@ -133,8 +135,8 @@ const AuthForm = ({ session, setSession }) => {
    }
 
    return (
-      <div css={tw`h-screen bg-gray-100 flex items-center justify-center`}>
-         <section css={tw`flex flex-col bg-white border p-4 pt-0 rounded`}>
+      <div css={tw`h-screen flex items-center justify-center`}>
+         <section css={tw`flex flex-col bg-white border p-4 rounded`}>
             <h2 css={tw`text-center text-gray-700 text-xl font-medium mb-3`}>
                Authentication
             </h2>
@@ -142,7 +144,7 @@ const AuthForm = ({ session, setSession }) => {
                type="password"
                value={session.secret}
                placeholder="Enter the secret code"
-               css={tw`h-10 rounded px-3 border-none bg-gray-100`}
+               css={tw`h-10 rounded px-3 bg-gray-100`}
                onChange={e =>
                   setSession(session => ({
                      ...session,
@@ -158,7 +160,7 @@ const AuthForm = ({ session, setSession }) => {
                onClick={verify_session}
                disabled={session.secret.length === 0}
                css={[
-                  tw`mt-3 px-3 h-10 rounded border-none text-white uppercase tracking-wider`,
+                  tw`mt-3 px-3 h-10 rounded text-white uppercase tracking-wider`,
                   session.secret.length > 0
                      ? tw`bg-green-600`
                      : tw`bg-gray-300 text-gray-600 cursor-not-allowed`,
@@ -166,7 +168,7 @@ const AuthForm = ({ session, setSession }) => {
             >
                Submit
             </button>
-            <fieldset css={tw`mt-3 p-0 border-none`}>
+            <fieldset css={tw`mt-3`}>
                <input
                   css={tw`mr-2`}
                   type="checkbox"
