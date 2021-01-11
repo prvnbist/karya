@@ -39,7 +39,9 @@ export default function Dates() {
                <h1 css={tw`text-2xl text-gray-800`}>Dates View</h1>
             </header>
             <section>
-               <ul css={tw`grid grid-cols-7 items-center gap-3`}>
+               <ul
+                  css={tw`grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 items-center gap-3`}
+               >
                   {Array.isArray(week.days()) &&
                      week.days().map(date => (
                         <li
