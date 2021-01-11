@@ -42,6 +42,15 @@ export default function Home() {
                      </a>
                   </Link>
                </li>
+               <li>
+                  <Link href="/dates">
+                     <a
+                        css={tw`block cursor-pointer transition-all transition-shadow duration-500 ease-in-out bg-white border border-gray-200 py-4 px-5 rounded hover:shadow-xl`}
+                     >
+                        Dates
+                     </a>
+                  </Link>
+               </li>
             </ul>
          </main>
       </div>

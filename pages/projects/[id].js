@@ -15,7 +15,7 @@ export default function Project() {
       loading: projectLoading,
       data: { project = {} } = {},
    } = useSubscription(QUERIES.PROJECT, { variables: { id } })
-   const { loading: tasksLoading, data: { tasks = [] } = {} } = useSubscription(
+   const { loading: tasksLoading, data: { tasks = {} } = {} } = useSubscription(
       QUERIES.TASKS,
       {
          variables: {
@@ -76,11 +76,11 @@ export default function Project() {
                </div>
             ) : (
                <>
-                  {tasks.length === 0 ? (
+                  {tasks?.aggregate?.count === 0 ? (
                      <span>No tasks available.</span>
                   ) : (
                      <ul css={tw`space-y-2`}>
-                        {tasks.map(task => (
+                        {tasks?.nodes?.map(task => (
                            <Task key={task.id} task={task} />
                         ))}
                      </ul>
