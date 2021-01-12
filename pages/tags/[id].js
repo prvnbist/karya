@@ -33,7 +33,7 @@ export default function Tag() {
          </Head>
          <main>
             <header
-               css={tw`flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
+               css={tw`sticky top-0 bg-gray-100 flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
             >
                <span
                   onClick={() => router.back()}
@@ -46,7 +46,7 @@ export default function Tag() {
                </h1>
             </header>
             <h2
-               css={tw`mt-3 text-xl text-gray-800 py-1 border-b border-gray-300 mb-3`}
+               css={tw`mt-3 text-xl text-gray-800 py-2 border-b border-gray-300 mb-3`}
             >
                Tasks({tag?.tasks?.aggregate?.count || 0})
             </h2>

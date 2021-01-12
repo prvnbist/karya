@@ -22,7 +22,7 @@ export default function Projects() {
          </Head>
          <main>
             <header
-               css={tw`flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
+               css={tw`sticky top-0 bg-gray-100 flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
             >
                <span
                   onClick={() => router.push('/')}

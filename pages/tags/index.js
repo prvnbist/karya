@@ -42,7 +42,7 @@ export default function Tags() {
          </Head>
          <main>
             <header
-               css={tw`flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
+               css={tw`sticky top-0 bg-gray-100 flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
             >
                <span
                   onClick={() => router.push('/')}
@@ -50,7 +50,7 @@ export default function Tags() {
                >
                   <Icon.Home size="22" css={tw`stroke-current text-gray-700`} />
                </span>
-               <h1 css={tw`text-2xl text-gray-800`}>
+               <h1 css={tw`text-2xl pb-2 text-gray-800`}>
                   Tags ({list?.aggregate?.count || 0})
                </h1>
             </header>
