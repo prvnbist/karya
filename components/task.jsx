@@ -8,14 +8,15 @@ export const Task = ({ task }) => {
    const tags = task.tags.map(({ tag }) => tag)
    return (
       <li css={tw`bg-white border border-gray-200 py-4 px-5 rounded`}>
+         {Status[task?.status]}
          <section css={tw`mb-1 flex items-center justify-between`}>
-            <h2 title={task.title} css={tw`text-xl mb-1`}>
+            <h2 title={task.title} css={tw`text-xl mt-2 mb-1`}>
                {task.title}
             </h2>
             {task?.created_at && (
                <span
                   title={task?.created_at}
-                  css={tw`px-2 py-1 bg-green-200 text-green-700 rounded uppercase tracking-wider font-medium text-sm text-gray-600`}
+                  css={tw`uppercase tracking-wider font-medium text-sm text-gray-600`}
                >
                   {new Intl.DateTimeFormat('en-US', {
                      year: 'numeric',
@@ -46,4 +47,38 @@ export const Task = ({ task }) => {
          </section>
       </li>
    )
+}
+
+const statusWrapper = tw`px-2 px-1 rounded uppercase tracking-wider text-sm font-medium`
+const Status = {
+   PENDING: (
+      <span
+         css={[
+            statusWrapper,
+            tw`bg-blue-100 border border-blue-200 text-blue-500`,
+         ]}
+      >
+         Pending
+      </span>
+   ),
+   IN_PROGRESS: (
+      <span
+         css={[
+            statusWrapper,
+            tw`bg-yellow-100 border border-yellow-200 text-yellow-700`,
+         ]}
+      >
+         In Progress
+      </span>
+   ),
+   COMPLETED: (
+      <span
+         css={[
+            statusWrapper,
+            tw`bg-green-200 border border-green-300 text-green-700`,
+         ]}
+      >
+         Completed
+      </span>
+   ),
 }
