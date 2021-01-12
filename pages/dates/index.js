@@ -17,6 +17,7 @@ export default function Dates() {
       {
          variables: {
             where: { published_at: { _eq: current } },
+            order_by: { created_at: 'desc' },
          },
       }
    )

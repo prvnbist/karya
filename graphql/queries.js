@@ -41,6 +41,7 @@ export const QUERIES = {
             nodes {
                id
                title
+               status
                created_at
                description
                tags(order_by: { created_at: desc }) {
@@ -58,7 +59,10 @@ export const QUERIES = {
          tag(id: $id) {
             id
             title
-            tasks: tasks_aggregate {
+            tasks: tasks_aggregate(
+               where: { task: { status: { _neq: "ARCHIVED" } } }
+               order_by: { created_at: desc }
+            ) {
                aggregate {
                   count
                }
@@ -66,9 +70,10 @@ export const QUERIES = {
                   task {
                      id
                      title
+                     status
                      created_at
                      description
-                     tags(order_by: { created_at: desc }) {
+                     tags {
                         tag {
                            id
                            title
@@ -89,7 +94,9 @@ export const QUERIES = {
             nodes {
                id
                title
-               tasks: tasks_aggregate {
+               tasks: tasks_aggregate(
+                  where: { task: { status: { _neq: "ARCHIVED" } } }
+               ) {
                   aggregate {
                      count
                   }
