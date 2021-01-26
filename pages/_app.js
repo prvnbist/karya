@@ -13,6 +13,7 @@ import { getMainDefinition } from '@apollo/client/utilities'
 
 import '../styles/global.css'
 import Icon from '../icons'
+import { Sidebar } from '../sections'
 import { Loader, TaskTunnel } from '../components'
 
 const wssLink = process.browser
@@ -63,8 +64,6 @@ const client = new ApolloClient({
 })
 
 const App = ({ Component, pageProps }) => {
-   const [areOptionsVisible, setAreOptionsVisible] = React.useState(false)
-   const [isTaskTunnelOpen, setIsTaskTunnelOpen] = React.useState(false)
    const [session, setSession] = React.useState({
       loading: true,
       error: '',
@@ -105,31 +104,15 @@ const App = ({ Component, pageProps }) => {
    return (
       <ApolloProvider client={client}>
          <GlobalStyles />
-         <div css={tw`px-4 bg-gray-100 h-screen w-screen overflow-y-auto`}>
+         <div css={tw`bg-white h-screen w-screen overflow-hidden`}>
             {session.authenticated ? (
-               <>
-                  <Component {...pageProps} />
-                  <AddButton
-                     onClick={() => setAreOptionsVisible(!areOptionsVisible)}
-                  >
-                     <Icon.Add size="24" css={tw`stroke-current text-white`} />
-                  </AddButton>
-                  {areOptionsVisible && (
-                     <AddOptions>
-                        <li
-                           onClick={() => {
-                              setAreOptionsVisible(false)
-                              setIsTaskTunnelOpen(true)
-                           }}
-                        >
-                           Create Task
-                        </li>
-                     </AddOptions>
-                  )}
-                  {isTaskTunnelOpen && (
-                     <TaskTunnel close={() => setIsTaskTunnelOpen(false)} />
-                  )}
-               </>
+               <Styles.Layout>
+                  <Sidebar />
+                  <main>
+                     <Component {...pageProps} />
+                  </main>
+                  <Upsert />
+               </Styles.Layout>
             ) : (
                <AuthForm session={session} setSession={setSession} />
             )}
@@ -139,6 +122,35 @@ const App = ({ Component, pageProps }) => {
 }
 
 export default App
+
+const Upsert = () => {
+   const [areOptionsVisible, setAreOptionsVisible] = React.useState(false)
+   const [isTaskTunnelOpen, setIsTaskTunnelOpen] = React.useState(false)
+   return (
+      <>
+         <Styles.AddButton
+            onClick={() => setAreOptionsVisible(!areOptionsVisible)}
+         >
+            <Icon.Add size="24" css={tw`stroke-current text-white`} />
+         </Styles.AddButton>
+         {areOptionsVisible && (
+            <Styles.AddOptions>
+               <li
+                  onClick={() => {
+                     setAreOptionsVisible(false)
+                     setIsTaskTunnelOpen(true)
+                  }}
+               >
+                  Create Task
+               </li>
+            </Styles.AddOptions>
+         )}
+         {isTaskTunnelOpen && (
+            <TaskTunnel close={() => setIsTaskTunnelOpen(false)} />
+         )}
+      </>
+   )
+}
 
 const AuthForm = ({ session, setSession }) => {
    const verify_session = () => {
@@ -214,9 +226,10 @@ const AuthForm = ({ session, setSession }) => {
    )
 }
 
-const AddButton = styled.button`
-   z-index: 1000;
-   ${tw`
+const Styles = {
+   AddButton: styled.button`
+      z-index: 1000;
+      ${tw`
       absolute 
       right-0 bottom-0 
       mr-4 mb-4 
@@ -226,16 +239,29 @@ const AddButton = styled.button`
       rounded shadow-lg 
       hover:bg-green-600
    `}
-`
-
-const AddOptions = styled.ul`
-   z-index: 1000;
-   ${tw`
+   `,
+   AddOptions: styled.ul`
+      z-index: 1000;
+      ${tw`
       absolute 
       right-0 bottom-0 
       mr-4 mb-16
    `}
-   li {
-      ${tw`bg-white px-3 py-2 rounded shadow-md cursor-pointer`}
-   }
-`
+      li {
+         ${tw`bg-white px-3 py-2 rounded shadow-md cursor-pointer`}
+      }
+   `,
+   Layout: styled.div`
+      ${tw`grid h-full`}
+      grid-template-columns: 280px 1fr;
+      > main {
+         ${tw`p-3 h-screen overflow-hidden`}
+         > div {
+            ${tw`rounded-lg h-full overflow-y-auto bg-gray-100`}
+            > main {
+               ${tw`px-3 pb-3`}
+            }
+         }
+      }
+   `,
+}
