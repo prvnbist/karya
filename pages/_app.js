@@ -105,7 +105,7 @@ const App = ({ Component, pageProps }) => {
    return (
       <ApolloProvider client={client}>
          <GlobalStyles />
-         <div css={tw`px-4 bg-gray-100 h-screen w-screen overflow-y-auto`}>
+         <div css={tw`px-4 h-screen w-screen overflow-y-auto`}>
             {session.authenticated ? (
                <>
                   <Component {...pageProps} />

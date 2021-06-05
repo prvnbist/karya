@@ -114,4 +114,23 @@ export const QUERIES = {
          }
       }
    `,
+   DATES: gql`
+      subscription dates($where: dates_bool_exp = {}) {
+         dates(where: $where) {
+            day
+            title
+            tasks: tasks_aggregate {
+               aggregate {
+                  count
+               }
+               nodes {
+                  id
+                  title
+                  status
+                  created_at
+               }
+            }
+         }
+      }
+   `,
 }

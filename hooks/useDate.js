@@ -19,5 +19,12 @@ export const useDate = () => {
       },
    }
 
-   return { current, setCurrent, week }
+   return {
+      current,
+      setCurrent,
+      week,
+      month: {
+         title: format(new Date(), 'MMM yyyy'),
+      },
+   }
 }

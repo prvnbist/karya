@@ -1,56 +1,68 @@
 import React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import tw from 'twin.macro'
 import { useSubscription } from '@apollo/client'
+import { format, startOfWeek, endOfWeek } from 'date-fns'
 
+import Icon from '../icons'
 import { QUERIES } from '../graphql'
+import { Loader, Task } from '../components'
 
-export default function Home() {
-   const { data: { projects = {} } = {} } = useSubscription(
-      QUERIES.PROJECT_AGGREGATE
+export default function Dates() {
+   const [today, setToday] = React.useState(() =>
+      format(new Date(), 'yyyy-MM-dd')
    )
-   const { data: { tags = {} } = {} } = useSubscription(QUERIES.TAG_AGGREGATE)
+   const { loading, data: { dates = [] } = {} } = useSubscription(
+      QUERIES.DATES,
+      {
+         skip: !today,
+         variables: {
+            where: {
+               date: {
+                  _gte: startOfWeek(new Date(today), { weekStartsOn: 2 }),
+                  _lt: endOfWeek(new Date(today), { weekStartsOn: 2 }),
+               },
+            },
+         },
+      }
+   )
+
+   if (loading) return <Loader />
    return (
       <div>
          <Head>
-            <title>Home | Karya App</title>
+            <title>Karya</title>
             <link rel="icon" href="/favicon.ico" />
          </Head>
-         <main>
-            <h1
-               css={tw`text-2xl text-gray-800 py-2 border-b border-gray-300 mb-3`}
-            >
-               Home
-            </h1>
-            <ul css={tw`grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-4`}>
-               <li>
-                  <Link href="/projects">
-                     <a
-                        css={tw`block cursor-pointer transition-all transition-shadow duration-500 ease-in-out bg-white border border-gray-200 py-4 px-5 rounded hover:shadow-xl`}
-                     >
-                        Projects ({projects?.aggregate?.count || 0})
-                     </a>
-                  </Link>
-               </li>
-               <li>
-                  <Link href="/tags">
-                     <a
-                        css={tw`block cursor-pointer transition-all transition-shadow duration-500 ease-in-out bg-white border border-gray-200 py-4 px-5 rounded hover:shadow-xl`}
-                     >
-                        Tags ({tags?.aggregate?.count || 0})
-                     </a>
-                  </Link>
-               </li>
-               <li>
-                  <Link href="/dates">
-                     <a
-                        css={tw`block cursor-pointer transition-all transition-shadow duration-500 ease-in-out bg-white border border-gray-200 py-4 px-5 rounded hover:shadow-xl`}
-                     >
-                        Dates
-                     </a>
-                  </Link>
-               </li>
+         <main tw="h-screen flex flex-col pb-3">
+            <header css={tw`flex-shrink-0 h-16 flex items-center`}>
+               <h2 tw="text-3xl font-bold">{format(new Date(), 'MMM yyyy')}</h2>
+            </header>
+            <ul tw="flex-1 h-full grid grid-cols-1 lg:grid-cols-6 lg:grid-rows-2 gap-4">
+               {dates.map((node, index) => (
+                  <li
+                     key={node.date}
+                     css={[
+                        [5, 6].includes(index)
+                           ? tw`lg:col-start-6`
+                           : tw`lg:row-start-1 lg:row-end-3`,
+                     ]}
+                  >
+                     <header tw="border-b border-gray-300 flex items-center justify-between">
+                        <span tw="text-lg font-medium">{node.title}</span>
+                        <span tw="text-lg font-medium text-gray-400">
+                           {node.day}
+                        </span>
+                     </header>
+                     <main>
+                        <ul tw="pt-2">
+                           {node.tasks.nodes.map(task => (
+                              <Task task={task} key={task.id} />
+                           ))}
+                        </ul>
+                     </main>
+                  </li>
+               ))}
             </ul>
          </main>
       </div>
