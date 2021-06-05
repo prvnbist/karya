@@ -72,26 +72,33 @@ const App = ({ Component, pageProps }) => {
       storeLocally: false,
    })
    React.useEffect(() => {
-      let exists = localStorage.key('secret')
-      if (exists) {
-         const secret = localStorage.getItem('secret')
-         if (secret === process.env.HASURA_ADMIN_SECRET) {
-            setSession(session => ({
-               ...session,
-               loading: false,
-               authenticated: true,
-            }))
+      if (!process.env.HASURA_ADMIN_SECRET) {
+         setSession(session => ({
+            ...session,
+            loading: false,
+         }))
+      } else {
+         let exists = localStorage.key('secret')
+         if (exists) {
+            const secret = localStorage.getItem('secret')
+            if (secret === process.env.HASURA_ADMIN_SECRET) {
+               setSession(session => ({
+                  ...session,
+                  loading: false,
+                  authenticated: true,
+               }))
+            } else {
+               setSession(session => ({
+                  ...session,
+                  loading: false,
+               }))
+            }
          } else {
             setSession(session => ({
                ...session,
                loading: false,
             }))
          }
-      } else {
-         setSession(session => ({
-            ...session,
-            loading: false,
-         }))
       }
    }, [])
 
