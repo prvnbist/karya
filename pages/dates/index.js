@@ -28,7 +28,7 @@ export default function Dates() {
             <link rel="icon" href="/favicon.ico" />
          </Head>
          <main>
-            <header css={tw`sticky top-0 bg-gray-100 pb-3`}>
+            <header css={tw`sticky top-0 bg-white pb-3`}>
                <nav
                   css={tw`flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
                >

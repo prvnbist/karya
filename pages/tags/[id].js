@@ -12,10 +12,10 @@ export default function Tag() {
    const router = useRouter()
    const { id } = router.query
    const [tasks, setTasks] = React.useState([])
-   const {
-      loading: loading,
-      data: { tag = {} } = {},
-   } = useSubscription(QUERIES.TAG, { variables: { id } })
+   const { loading: loading, data: { tag = {} } = {} } = useSubscription(
+      QUERIES.TAG,
+      { variables: { id } }
+   )
 
    React.useEffect(() => {
       if (tag?.tasks?.aggregate?.count > 0) {
@@ -33,7 +33,7 @@ export default function Tag() {
          </Head>
          <main>
             <header
-               css={tw`sticky top-0 bg-gray-100 flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
+               css={tw`sticky top-0 bg-white flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
             >
                <span
                   onClick={() => router.back()}

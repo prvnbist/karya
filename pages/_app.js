@@ -13,7 +13,6 @@ import { getMainDefinition } from '@apollo/client/utilities'
 
 import '../styles/global.css'
 import Icon from '../icons'
-import { Sidebar } from '../sections'
 import { Loader, TaskTunnel } from '../components'
 
 const wssLink = process.browser
@@ -114,7 +113,6 @@ const App = ({ Component, pageProps }) => {
          <div css={tw`bg-white h-screen w-screen overflow-hidden`}>
             {session.authenticated ? (
                <Styles.Layout>
-                  <Sidebar />
                   <main>
                      <Component {...pageProps} />
                   </main>
@@ -259,12 +257,11 @@ const Styles = {
       }
    `,
    Layout: styled.div`
-      ${tw`grid h-full`}
-      grid-template-columns: 280px 1fr;
+      ${tw`h-full bg-gray-100`}
       > main {
-         ${tw`p-3 h-screen overflow-hidden`}
+         ${tw`h-full p-3 overflow-hidden`}
          > div {
-            ${tw`rounded-lg h-full overflow-y-auto bg-gray-100`}
+            ${tw`rounded-lg h-full overflow-y-auto bg-white`}
             > main {
                ${tw`px-3 pb-3`}
             }

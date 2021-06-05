@@ -11,10 +11,8 @@ import { Loader, Task } from '../../components'
 export default function Project() {
    const router = useRouter()
    const { id } = router.query
-   const {
-      loading: projectLoading,
-      data: { project = {} } = {},
-   } = useSubscription(QUERIES.PROJECT, { variables: { id } })
+   const { loading: projectLoading, data: { project = {} } = {} } =
+      useSubscription(QUERIES.PROJECT, { variables: { id } })
    const { loading: tasksLoading, data: { tasks = {} } = {} } = useSubscription(
       QUERIES.TASKS,
       {
@@ -32,7 +30,7 @@ export default function Project() {
             <link rel="icon" href="/favicon.ico" />
          </Head>
          <main>
-            <header css={tw`sticky top-0 bg-gray-100 pb-3`}>
+            <header css={tw`sticky top-0 pb-3 bg-white`}>
                <nav
                   css={tw`flex items-center border-b border-gray-300 py-2 mb-3 space-x-2`}
                >
