@@ -1,13 +1,13 @@
 import React from 'react'
 
-const Add = ({ size = 18, ...props }) => (
+export const Add = ({ size = 18, ...props }) => (
    <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      strokeWidth="2"
+      strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
@@ -16,5 +16,3 @@ const Add = ({ size = 18, ...props }) => (
       <line x1="5" y1="12" x2="19" y2="12" />
    </svg>
 )
-
-export default Add

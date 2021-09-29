@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Tag = ({ size = 18, ...props }) => (
+export const Tag = ({ size = 18, ...props }) => (
    <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
@@ -16,5 +16,3 @@ const Tag = ({ size = 18, ...props }) => (
       <line x1="7" y1="7" x2="7.01" y2="7" />
    </svg>
 )
-
-export default Tag
