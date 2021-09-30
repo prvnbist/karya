@@ -118,6 +118,7 @@ export const QUERIES = {
       subscription dates($where: dates_bool_exp = {}) {
          dates(where: $where) {
             day
+            date
             title
             tasks: tasks_aggregate {
                aggregate {
@@ -125,9 +126,9 @@ export const QUERIES = {
                }
                nodes {
                   id
+                  date
                   title
                   status
-                  created_at
                }
             }
          }

@@ -3,6 +3,10 @@ body {
    font-family: 'Inter', sans-serif;
 }
 
+body {
+   padding: 16px;
+}
+
 h1,
 h2,
 h3 {

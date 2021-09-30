@@ -1,8 +1,9 @@
-import tw, { GlobalStyles } from 'twin.macro'
+import { GlobalStyles } from 'twin.macro'
 
 import '../styles/global.css'
 import Auth from '../lib/auth'
 import Apollo from '../lib/apollo'
+import StateProvider from '../store/global'
 
 const App = ({ Component, pageProps }) => {
    return (
@@ -10,7 +11,9 @@ const App = ({ Component, pageProps }) => {
          <GlobalStyles />
          <Auth>
             <Apollo>
-               <Component {...pageProps} />
+               <StateProvider>
+                  <Component {...pageProps} />
+               </StateProvider>
             </Apollo>
          </Auth>
       </>

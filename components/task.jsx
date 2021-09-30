@@ -1,9 +1,21 @@
 import React from 'react'
 import tw from 'twin.macro'
 
-export const Task = ({ task }) => {
+import { useGlobal } from '../store/global'
+
+const Task = ({ task }) => {
+   const { toggle_form_modal, set_form } = useGlobal()
+
+   const openTask = () => {
+      toggle_form_modal()
+      const { __typename, ...rest } = task
+      set_form(rest)
+   }
    return (
-      <li css={tw`bg-white border-b border-gray-300 p-2`}>
+      <li
+         onClick={openTask}
+         css={tw`bg-white border-b border-gray-300 p-2 cursor-pointer hover:bg-gray-100`}
+      >
          <section css={tw`flex items-center space-x-2`}>
             <span title={task?.status}>{STATUS[task?.status]}</span>
             <h2 title={task.title}>{task.title}</h2>
@@ -11,6 +23,8 @@ export const Task = ({ task }) => {
       </li>
    )
 }
+
+export default Task
 
 const statusWrapper = tw`flex h-3 w-3 rounded-full`
 const STATUS = {
