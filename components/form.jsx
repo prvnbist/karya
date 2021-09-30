@@ -71,6 +71,7 @@ export const Form = () => {
                      id="title"
                      name="title"
                      value={form.title}
+                     placeholder="Enter the task title"
                      onChange={e => set_form({ title: e.target.value })}
                      tw="w-full h-10 px-2 rounded border border-gray-300"
                   />
@@ -90,6 +91,7 @@ export const Form = () => {
                      id="description"
                      name="description"
                      value={form.description}
+                     placeholder="Enter the task description"
                      onChange={e => set_form({ description: e.target.value })}
                      tw="pt-1 w-full max-h-40 px-2 rounded border border-gray-300"
                   />
@@ -114,6 +116,12 @@ export const Form = () => {
                      <StatusOption
                         title="Completed"
                         value="COMPLETED"
+                        set_form={set_form}
+                        status={form.status}
+                     />
+                     <StatusOption
+                        title="Closed"
+                        value="CLOSED"
                         set_form={set_form}
                         status={form.status}
                      />
@@ -143,7 +151,7 @@ export const Form = () => {
                      tw`h-10 w-full rounded bg-green-600 text-white mt-4 disabled:(cursor-not-allowed text-gray-700 bg-gray-300)`,
                   ]}
                >
-                  Add Task
+                  {form.user_id ? 'Update' : 'Add'} Task
                </button>
             </main>
          </div>

@@ -10,7 +10,10 @@ export const QUERIES = {
             day
             date
             title
-            tasks: tasks_aggregate(where: { user_id: { _eq: $user_id } }) {
+            tasks: tasks_aggregate(
+               where: { user_id: { _eq: $user_id } }
+               order_by: { created_at: desc }
+            ) {
                aggregate {
                   count
                }
@@ -19,6 +22,7 @@ export const QUERIES = {
                   date
                   title
                   status
+                  user_id
                }
             }
          }

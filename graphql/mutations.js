@@ -8,7 +8,7 @@ export const MUTATIONS = {
                object: $object
                on_conflict: {
                   constraint: task_pkey
-                  update_columns: [title, description, status, date]
+                  update_columns: [title, description, status, date, user_id]
                }
             ) {
                id
