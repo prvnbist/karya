@@ -17,7 +17,7 @@ const Task = ({ task }) => {
          css={tw`bg-white border-b border-gray-300 p-2 cursor-pointer hover:bg-gray-100`}
       >
          <section css={tw`flex items-center space-x-2`}>
-            <span title={task?.status}>{STATUS[task?.status]}</span>
+            <span title={task.status}>{STATUS[task.status]}</span>
             <h2 title={task.title}>{task.title}</h2>
          </section>
       </li>

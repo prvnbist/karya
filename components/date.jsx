@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 import Task from './task'
 import AddTask from './add_task'
 
-const Date = ({ date, isWeekend }) => {
+const Date = ({ date = {}, isWeekend = false }) => {
    return (
       <li
          css={[

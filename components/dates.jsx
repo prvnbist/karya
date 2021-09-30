@@ -1,7 +1,6 @@
 import tw from 'twin.macro'
 
 import Date from './date'
-import AddTask from './add_task'
 
 export const Dates = ({ dates = [] }) => {
    return (

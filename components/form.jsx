@@ -103,7 +103,7 @@ export const Form = () => {
                      />
                      <StatusOption
                         title="In Progress"
-                        value="In_PROGRESS"
+                        value="IN_PROGRESS"
                         set_form={set_form}
                         status={form.status}
                      />
