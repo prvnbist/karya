@@ -31,7 +31,7 @@ export const Form = () => {
    return (
       <div tw="fixed inset-0 z-10 bg-black bg-opacity-50 py-5 overflow-y-auto">
          <div tw="bg-white w-11/12 sm:w-4/6 lg:w-3/6 max-w-xl mx-auto rounded-lg z-10">
-            <header tw="flex flex-row items-center justify-between p-6 border-b border-gray-200 rounded-tl-lg rounded-tr-lg">
+            <header tw="flex flex-row items-center justify-between p-5 border-b border-gray-200 rounded-tl-lg rounded-tr-lg">
                <p tw="text-lg font-semibold text-gray-800">Add Task</p>
                <button
                   onClick={() => {
@@ -41,7 +41,7 @@ export const Form = () => {
                   tw="flex items-center justify-center h-8 w-8 rounded hover:bg-gray-200"
                >
                   <svg
-                     tw="w-6 h-6"
+                     tw="w-5 h-5"
                      fill="none"
                      stroke="currentColor"
                      viewBox="0 0 24 24"
@@ -56,10 +56,10 @@ export const Form = () => {
                   </svg>
                </button>
             </header>
-            <main tw="p-6 pt-5">
+            <main tw="p-5 pt-4">
                <fieldset>
                   <label
-                     tw="block mb-1 font-medium text-gray-700"
+                     tw="text-sm block mb-1 font-medium text-gray-700"
                      htmlFor="title"
                   >
                      Title
@@ -78,7 +78,7 @@ export const Form = () => {
                </fieldset>
                <fieldset tw="mt-4">
                   <label
-                     tw="block mb-1 font-medium text-gray-700"
+                     tw="text-sm block mb-1 font-medium text-gray-700"
                      htmlFor="description"
                   >
                      Description
@@ -93,7 +93,9 @@ export const Form = () => {
                   />
                </fieldset>
                <fieldset tw="mt-4">
-                  <span tw="block mb-1 font-medium text-gray-700">Status</span>
+                  <span tw="text-sm block mb-1 font-medium text-gray-700">
+                     Status
+                  </span>
                   <section tw="gap-1 p-1 flex flex-col md:flex-row items-center justify-around border border-gray-300 rounded">
                      <StatusOption
                         title="Pending"
@@ -117,7 +119,7 @@ export const Form = () => {
                </fieldset>
                <fieldset tw="mt-4">
                   <label
-                     tw="block mb-1 font-medium text-gray-700"
+                     tw="text-sm block mb-1 font-medium text-gray-700"
                      htmlFor="date"
                   >
                      Date

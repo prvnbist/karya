@@ -4,8 +4,6 @@ const Context = React.createContext()
 
 const reducers = (state, { type, payload }) => {
    switch (type) {
-      case 'SET_SELECTED':
-         return { ...state, selected: payload }
       case 'SET_FORM':
          return { ...state, form: { ...state.form, ...payload } }
       case 'CLEAR_FORM':

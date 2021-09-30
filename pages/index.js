@@ -49,7 +49,7 @@ export default function Home() {
                            )
                         )
                      }
-                     tw="rounded h-10 w-10 border border-gray-200 flex items-center justify-center hover:bg-gray-200"
+                     tw="rounded h-8 w-8 border border-gray-200 flex items-center justify-center hover:bg-gray-200"
                   >
                      <LeftArrow tw="stroke-current text-gray-700" />
                   </button>
@@ -62,12 +62,12 @@ export default function Home() {
                            )
                         )
                      }
-                     tw="rounded h-10 w-10 border border-gray-200 flex items-center justify-center hover:bg-gray-200"
+                     tw="rounded h-8 w-8 border border-gray-200 flex items-center justify-center hover:bg-gray-200"
                   >
                      <RightArrow tw="stroke-current text-gray-700" />
                   </button>
                </section>
-               <h2 tw="text-3xl font-bold">
+               <h2 tw="text-2xl font-bold">
                   {format(new Date(selectedDate), 'MMM yyyy')}
                </h2>
             </header>
@@ -82,8 +82,8 @@ const LeftArrow = ({ size = 20, ...props }) => {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width="24"
-         height="24"
+         width={size}
+         height={size}
          viewBox="0 0 24 24"
          fill="none"
          strokeWidth="2"
@@ -100,8 +100,8 @@ const RightArrow = ({ size = 20, ...props }) => {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width="24"
-         height="24"
+         width={size}
+         height={size}
          viewBox="0 0 24 24"
          fill="none"
          strokeWidth="2"

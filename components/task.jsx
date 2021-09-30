@@ -18,7 +18,9 @@ const Task = ({ task }) => {
       >
          <section css={tw`flex items-center space-x-2`}>
             <span title={task.status}>{STATUS[task.status]}</span>
-            <h2 title={task.title}>{task.title}</h2>
+            <h2 title={task.title} tw="text-sm truncate">
+               {task.title}
+            </h2>
          </section>
       </li>
    )
