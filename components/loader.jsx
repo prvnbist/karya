@@ -20,10 +20,9 @@ const Styles = {
          animation: load7 1.8s infinite ease-in-out;
       }
       > div {
-         color: #d8cece;
+         color: green;
          font-size: 8px;
          margin: 0 auto;
-         margin-top: -30px;
          position: relative;
          text-indent: -9999em;
          transform: translateZ(0);

@@ -1,11 +1,13 @@
 import React from 'react'
 import tw from 'twin.macro'
 import { useMutation } from '@apollo/client'
+import { useSession } from 'next-auth/client'
 
 import { useGlobal } from '../store/global'
 import { MUTATIONS } from '../graphql/mutations'
 
 export const Form = () => {
+   const [session] = useSession()
    const [errors, setErrors] = React.useState({ title: '' })
    const { form, toggle_form_modal, set_form, clear_form } = useGlobal()
    const [addTask] = useMutation(MUTATIONS.TASK.UPSERT, {
@@ -25,7 +27,7 @@ export const Form = () => {
       }
 
       setErrors(errors => ({ ...errors, title: '' }))
-      addTask({ variables: { object: form } })
+      addTask({ variables: { object: { user_id: session.user?.id, ...form } } })
    }
 
    return (

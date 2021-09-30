@@ -4,11 +4,12 @@ module.exports = {
       HASURA_HTTPS_URL: process.env.HASURA_HTTPS_URL,
       HASURA_WSS_URL: process.env.HASURA_WSS_URL,
    },
-   webpack: (config, { isServer }) => {
-      if (!isServer) {
-         config.node = { fs: 'empty', module: 'empty' }
-      }
-
+   webpack5: true,
+   webpack: config => {
+      config.resolve.fallback = { fs: false, module: false }
       return config
+   },
+   images: {
+      domains: ['lh3.googleusercontent.com'],
    },
 }
