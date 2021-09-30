@@ -32,6 +32,7 @@ const Task = ({ task }) => {
 
    return (
       <li
+         className="group"
          onClick={openTask}
          css={tw`bg-white border-b border-gray-300 p-2 cursor-pointer hover:bg-gray-100`}
       >
@@ -51,7 +52,7 @@ const Task = ({ task }) => {
             {!['COMPLETED', 'CLOSED'].includes(task.status) && (
                <button
                   onClick={markComplete}
-                  tw="h-5 w-5 flex items-center justify-center"
+                  tw="hidden h-5 w-5 items-center justify-center group-hover:flex"
                >
                   <Icon.Done size={16} tw="stroke-current text-gray-500" />
                </button>
