@@ -34,7 +34,7 @@ const Task = ({ task }) => {
       <li
          className="group"
          onClick={openTask}
-         css={tw`bg-white border-b border-gray-300 p-2 cursor-pointer hover:bg-gray-100`}
+         css={tw`border-b border-dark-200 p-2 cursor-pointer hover:border-dark-100`}
       >
          <section css={[tw`flex items-center justify-between space-x-2`]}>
             <main tw="flex items-center">
@@ -42,8 +42,8 @@ const Task = ({ task }) => {
                <h2
                   title={task.title}
                   css={[
-                     tw`ml-2 text-sm truncate`,
-                     task.status === 'CLOSED' && tw`text-gray-500 line-through`,
+                     tw`text-white ml-2 text-sm truncate`,
+                     task.status === 'CLOSED' && tw`text-dark-100 line-through`,
                   ]}
                >
                   {task.title}

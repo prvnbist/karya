@@ -36,19 +36,19 @@ export const Form = () => {
    }
 
    return (
-      <div tw="fixed inset-0 z-10 bg-black bg-opacity-50 py-5 overflow-y-auto">
-         <div tw="bg-white w-11/12 sm:w-4/6 lg:w-3/6 max-w-xl mx-auto rounded-lg z-10">
-            <header tw="flex flex-row items-center justify-between p-5 border-b border-gray-200 rounded-tl-lg rounded-tr-lg">
-               <p tw="text-lg font-semibold text-gray-800">Add Task</p>
+      <div tw="fixed inset-0 z-10 bg-black bg-opacity-75 py-5 overflow-y-auto">
+         <div tw="bg-dark-200 w-11/12 sm:w-4/6 lg:w-3/6 max-w-xl mx-auto rounded-lg z-10">
+            <header tw="flex flex-row items-center justify-between p-5 border-b border-dark-100 rounded-tl-lg rounded-tr-lg">
+               <p tw="text-lg font-semibold text-white">Add Task</p>
                <button
                   onClick={() => {
                      toggle_form_modal()
                      clear_form()
                   }}
-                  tw="flex items-center justify-center h-8 w-8 rounded hover:bg-gray-200"
+                  tw="flex items-center justify-center h-8 w-8 rounded hover:bg-dark-100"
                >
                   <svg
-                     tw="w-5 h-5"
+                     tw="w-5 h-5 text-white"
                      fill="none"
                      stroke="currentColor"
                      viewBox="0 0 24 24"
@@ -66,7 +66,7 @@ export const Form = () => {
             <main tw="p-5 pt-4">
                <fieldset>
                   <label
-                     tw="text-sm block mb-1 font-medium text-gray-700"
+                     tw="text-sm block mb-1 font-medium text-gray-400"
                      htmlFor="title"
                   >
                      Title
@@ -79,7 +79,7 @@ export const Form = () => {
                      value={form.title}
                      placeholder="Enter the task title"
                      onChange={e => set_form({ title: e.target.value })}
-                     tw="w-full h-10 px-2 rounded border border-gray-300"
+                     tw="w-full h-10 px-2 rounded bg-transparent border border-dark-100 text-white"
                   />
                   {errors?.title && (
                      <span tw="text-red-500">{errors?.title}</span>
@@ -87,7 +87,7 @@ export const Form = () => {
                </fieldset>
                <fieldset tw="mt-4">
                   <label
-                     tw="text-sm block mb-1 font-medium text-gray-700"
+                     tw="text-sm block mb-1 font-medium text-gray-400"
                      htmlFor="description"
                   >
                      Description
@@ -99,14 +99,14 @@ export const Form = () => {
                      value={form.description}
                      placeholder="Enter the task description"
                      onChange={e => set_form({ description: e.target.value })}
-                     tw="pt-1 w-full max-h-40 px-2 rounded border border-gray-300"
+                     tw="pt-1 w-full max-h-40 px-2 rounded bg-transparent border border-dark-100 text-white"
                   />
                </fieldset>
                <fieldset tw="mt-4">
-                  <span tw="text-sm block mb-1 font-medium text-gray-700">
+                  <span tw="text-sm block mb-1 font-medium text-gray-400">
                      Status
                   </span>
-                  <section tw="gap-1 p-1 flex flex-col md:flex-row items-center justify-around border border-gray-300 rounded">
+                  <section tw="gap-1 p-1 flex flex-col md:flex-row items-center justify-around border border-dark-100 rounded">
                      <StatusOption
                         title="Pending"
                         value="PENDING"
@@ -135,7 +135,7 @@ export const Form = () => {
                </fieldset>
                <fieldset tw="mt-4">
                   <label
-                     tw="text-sm block mb-1 font-medium text-gray-700"
+                     tw="text-sm block mb-1 font-medium text-gray-400"
                      htmlFor="date"
                   >
                      Date
@@ -146,7 +146,7 @@ export const Form = () => {
                      id="date"
                      value={form.date}
                      onChange={e => set_form({ date: e.target.value })}
-                     tw="w-full h-10 px-2 rounded border border-gray-300"
+                     tw="w-full h-10 px-2 rounded bg-transparent border border-dark-100 text-white"
                   />
                </fieldset>
                <button
@@ -154,7 +154,7 @@ export const Form = () => {
                   disabled={!form.title.trim()}
                   onClick={createTask}
                   css={[
-                     tw`h-10 w-full rounded bg-green-600 text-white mt-4 disabled:(cursor-not-allowed text-gray-700 bg-gray-300)`,
+                     tw`h-10 w-full rounded bg-green-600 text-white mt-4 disabled:(cursor-not-allowed text-dark-300 bg-dark-100)`,
                   ]}
                >
                   {form.user_id ? 'Update' : 'Add'} Task
@@ -168,17 +168,18 @@ export const Form = () => {
 const StatusOption = ({ status, title, value, set_form }) => {
    return (
       <label
+         className="group"
          onClick={() => set_form({ status: value })}
          css={[
             tw`w-full cursor-pointer flex justify-center flex-1 py-2 rounded`,
-            status === value ? tw`bg-green-600` : tw`hover:bg-gray-300`,
+            status === value ? tw`bg-green-600` : tw`hover:bg-dark-100`,
          ]}
       >
          <input tw="hidden" type="radio" name="status" id="status" />
          <span
             css={[
-               tw`text-sm uppercase tracking-wide font-medium text-gray-500`,
-               status === value && tw`text-white`,
+               tw`text-sm uppercase tracking-wide font-medium text-dark-100 group-hover:text-dark-300`,
+               status === value && tw`text-white group-hover:text-white`,
             ]}
          >
             {title}

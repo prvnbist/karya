@@ -3,6 +3,10 @@ body {
    font-family: 'Inter', sans-serif;
 }
 
+body {
+   background: #1f2023;
+}
+
 h1,
 h2,
 h3 {

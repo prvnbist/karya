@@ -12,15 +12,15 @@ const Styles = {
       > div:before,
       > div:after {
          border-radius: 50%;
-         width: 1.5em;
-         height: 1.5em;
+         width: 1em;
+         height: 1em;
          -webkit-animation-fill-mode: both;
          animation-fill-mode: both;
          -webkit-animation: load7 1.8s infinite ease-in-out;
          animation: load7 1.8s infinite ease-in-out;
       }
       > div {
-         color: green;
+         color: #62666d;
          font-size: 8px;
          margin: 0 auto;
          position: relative;
@@ -35,12 +35,12 @@ const Styles = {
          top: 0;
       }
       > div:before {
-         left: -3.5em;
+         left: -2em;
          -webkit-animation-delay: -0.32s;
          animation-delay: -0.32s;
       }
       > div:after {
-         left: 3.5em;
+         left: 2em;
       }
       @-webkit-keyframes load7 {
          0%,

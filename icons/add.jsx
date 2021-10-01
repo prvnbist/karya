@@ -7,7 +7,7 @@ export const Add = ({ size = 18, ...props }) => (
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      strokeWidth="2.5"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}

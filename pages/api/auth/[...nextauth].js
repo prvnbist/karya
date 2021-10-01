@@ -16,7 +16,7 @@ export default NextAuth({
       }),
    ],
    pages: {
-      signIn: '/login',
+      signIn: '/',
    },
    database: {
       type: 'postgres',
