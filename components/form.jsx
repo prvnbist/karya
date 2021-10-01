@@ -8,6 +8,7 @@ import { MUTATIONS } from '../graphql/mutations'
 
 export const Form = () => {
    const [session] = useSession()
+   const titleRef = React.useRef(null)
    const [errors, setErrors] = React.useState({ title: '' })
    const { form, toggle_form_modal, set_form, clear_form } = useGlobal()
    const [addTask] = useMutation(MUTATIONS.TASK.UPSERT, {
@@ -19,6 +20,10 @@ export const Form = () => {
          console.error(error)
       },
    })
+
+   React.useEffect(() => {
+      titleRef.current.focus()
+   }, [])
 
    const createTask = () => {
       if (!form.title.trim()) {
@@ -70,6 +75,7 @@ export const Form = () => {
                      type="text"
                      id="title"
                      name="title"
+                     ref={titleRef}
                      value={form.title}
                      placeholder="Enter the task title"
                      onChange={e => set_form({ title: e.target.value })}
