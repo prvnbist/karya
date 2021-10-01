@@ -49,7 +49,7 @@ export default function Home() {
             <title>Karya</title>
             <link rel="icon" href="/favicon.ico" />
          </Head>
-         <main tw="p-4 h-screen flex flex-col pb-3">
+         <main tw="overflow-y-auto p-4 h-screen flex flex-col pb-3">
             <header
                css={tw`flex-shrink-0 h-16 mb-8 flex items-center justify-between`}
             >
