@@ -15,9 +15,10 @@ export default function Home() {
    const router = useRouter()
    const { is_form_open } = useGlobal()
    const [session, sessionLoading] = useSession()
-   const [selectedDate, setSelectedDate] = React.useState(() =>
+   const [selectedDate, setSelectedDate] = React.useState(
       format(new Date(), 'yyyy-MM-dd')
    )
+
    const { loading, data: { dates = [] } = {} } = useSubscription(
       QUERIES.DATES,
       {
@@ -26,10 +27,16 @@ export default function Home() {
             user_id: session?.user?.id,
             where: {
                date: {
-                  _gte: startOfWeek(new Date(selectedDate), {
-                     weekStartsOn: 2,
-                  }),
-                  _lt: endOfWeek(new Date(selectedDate), { weekStartsOn: 2 }),
+                  _gte: format(
+                     startOfWeek(new Date(selectedDate), {
+                        weekStartsOn: 1,
+                     }),
+                     'yyyy-MM-dd'
+                  ),
+                  _lte: format(
+                     endOfWeek(new Date(selectedDate), { weekStartsOn: 1 }),
+                     'yyyy-MM-dd'
+                  ),
                },
             },
          },
